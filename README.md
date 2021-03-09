@@ -16,3 +16,11 @@ We'll be using the movielens dataset: https://grouplens.org/datasets/movielens/
 to train our movie data. We'll be utilizing a ML or Deep Learning model
 that we haven't decided yet to recommend information based on user preferences.
 3. Login/Authentication & User Management
+- Provide a basic auth and user management system that a user can
+update their information. It's important for users to have some of
+these features for reasons related to customization and security.
+
+Exemplar files:
+
+
+
