@@ -2,6 +2,9 @@
 
 [Docker](https://www.docker.com/) is a technology that allows OS level virtualization and allows for building containers which are isolatied environments to run applications. 
 
+- Here we have an exemplar for docker since we'll be able to containerize our applications.
+In a dockerfile, we'll need to specify our services, what ports we'll be running, and 
+set any important commands or environment variables that will be needed.
 ## Docker Compose for Flask(with Gunicorn) & Nginx & Postgres
 
 ```
