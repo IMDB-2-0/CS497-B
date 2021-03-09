@@ -21,6 +21,10 @@ update their information. It's important for users to have some of
 these features for reasons related to customization and security.
 
 Exemplar files:
+https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/docker
+
+https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/node-express
+
 
 
 
