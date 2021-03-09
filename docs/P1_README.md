@@ -4,7 +4,7 @@ On Wednesdays at 12:30 we all will meet with Professor Richards and discuss our 
 ## Project Idea and Technologies
 Our project idea is a movie recommendation system that will consist of a front-end, back-end, database, and containerization tools.
 
-Databases: We are undecided between using Postgres or MongoDB. However, MongoDB will likely help maximize our project's scalability because it supports sharding and load-balancing.
+Databases: The databases will be used to store user credentials and their movie ratings. We are undecided between using Postgres or MongoDB. However, MongoDB will likely help maximize our project's scalability because it supports sharding and load-balancing.
 
 Back-end: We are going to use flask for the backend because the movie recommender system will be Python-based. We may however use express and typescript as well for the backend.
 
