@@ -1,4 +1,4 @@
-# Examplar: Docker & Docker-compose 
+# Exemplar: Docker & Docker-compose 
 
 [Docker](https://www.docker.com/) is a technology that allows OS level virtualization and allows for building containers which are isolatied environments to run applications. 
 
