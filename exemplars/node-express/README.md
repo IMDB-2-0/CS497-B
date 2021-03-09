@@ -1,4 +1,4 @@
-# Examplar: Node and the Express Framework
+# Exemplar: Node and the Express Framework
 
 [Express](https://expressjs.com) is a Node.js web framework. Our group will be able to use it as it for the backends of our project. 
 
