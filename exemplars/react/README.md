@@ -1,5 +1,11 @@
 To setup React:
 
+# Intent:
+- Here we'll be learning how to installing React and setup a simple application. 
+React is a JS framework that's simple to use and is scalable because of sharable
+UI components and hooks. 
+
+# Setup/Install
 ```
 npx create-react-app client
 cd client
