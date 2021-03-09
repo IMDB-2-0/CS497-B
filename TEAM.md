@@ -24,12 +24,13 @@ Timothy
         Full stack development
         Data Science
         Information Retrieval/Recommender Systems
-    - Looking to possibly take some of what I learn from this project towards my internships & honors thesis. I think     microservices are cool and a necessary skill to learn
+    - Looking to possibly take some of what I learn from this project towards my internships & honors thesis. I think microservices is a cool and a necessary skill to learn/
 Eric
     - Senior CS student
     - Docker, Python, SQL, JavaScript
     - Just trying to graduate! Microservices is a dope course subject. 
 Robin
-    [Who you are]
-    [What you can offer]
-    [Interest in subject matter]
+    - Senior Informatics Student
+    - Skills: React, JavaScript, Python
+    - Looking to gain more experience with building scalable web applications and gaining   working with my team! Hoping to learn a lot!
+
