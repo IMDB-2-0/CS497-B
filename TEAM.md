@@ -30,7 +30,15 @@ Eric
     - Docker, Python, SQL, JavaScript
     - Just trying to graduate! Microservices is a dope course subject. 
 Robin
-    - Senior Informatics Student
-    - Skills: React, JavaScript, Python
-    - Looking to gain more experience with building scalable web applications and gaining   working with my team! Hoping to learn a lot!
+    - Senior Informatics Major
+    - Skills:
+        TypeScript
+        Node/Express 
+        SQL  
+        MongoDB
+        Data Science
+        D3
+        R
+    - I am really excited about gaining devops skills, especially Kubernetes!
+
 
