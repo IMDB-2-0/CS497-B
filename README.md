@@ -30,4 +30,3 @@ https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/node-express - Hans Qu
 https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/react - Timothy Nguyen
 
 https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/postgres - Eric Trimble
-
