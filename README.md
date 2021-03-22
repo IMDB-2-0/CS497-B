@@ -8,7 +8,7 @@ and IR to help imitate modern systems.
 Here are some of our goals:
 1. Develop a dashboard of user recommendations
 - We'll need a variety of APIs to grab information on movies
-such as their titles, posters, etc... It will display movies
+(such as their titles, posters, etc). It will display movies
 and users can rate movies and leave reviews.
 2. Movie Recommendation Engine in Flask
 - We will initially need to train a dataset with any proposed model.
@@ -21,12 +21,15 @@ update their information. It's important for users to have some of
 these features for reasons related to customization and security.
 
 Exemplar files:
-https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/P1/docker - Abhinav Tripathy
+- [Docker (by Abhinav Tripathy)](/exemplars/P1/docker)
 
-https://github.com/IMDB-2-0/CS497-B/tree/timothy/exemplars/P1/flask - Timothy Nguyen
+- [Flask (by Timothy Nguyen)](/exemplars/P1/flask)
 
-https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/P1/node-express - Hans Quiogue 
+- [Express.js (by Hans Quiogue)](/exemplars/P1/node-express)
 
-https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/P1/react - Timothy Nguyen
+- [React (by Timothy Nguyen)](/exemplars/P1/react)
 
-https://github.com/IMDB-2-0/CS497-B/tree/master/exemplars/P1/postgres - Eric Trimble
+- [Postgres (by Eric Trimble)](/exemplars/P1/postgres)
+
+- [Pipenv (by Hans Quiogue)](/exemplars/P1/pipenv)
+
