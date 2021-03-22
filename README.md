@@ -21,14 +21,15 @@ update their information. It's important for users to have some of
 these features for reasons related to customization and security.
 
 Exemplar files:
-- [Docker (by Abhinav Tripathy)](/exemplars/docker)
+- [Docker (by Abhinav Tripathy)](/exemplars/P1/docker)
 
-- [Flask (by Timothy Nguyen)](/exemplars/flask)
+- [Flask (by Timothy Nguyen)](/exemplars/P1/flask)
 
-- [Express.js (by Hans Quiogue)](/exemplars/node-express)
+- [Express.js (by Hans Quiogue)](/exemplars/P1/node-express)
 
-- [React (by Timothy Nguyen)](/exemplars/react)
+- [React (by Timothy Nguyen)](/exemplars/P1/react)
 
-- [Postgres (by Eric Trimble)](/exemplars/postgres)
+- [Postgres (by Eric Trimble)](/exemplars/P1/postgres)
 
-- [Pipenv (by Hans Quiogue)](/exemplars/pipenv)
+- [Pipenv (by Hans Quiogue)](/exemplars/P1/pipenv)
+
