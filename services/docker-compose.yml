@@ -8,6 +8,7 @@ services:
       - PGDATA=/tmp
     volumes:
       - ./database/data:/var/lib/postgresql/data/
+      - ./database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
   backend:
     build: 
       context: backend
