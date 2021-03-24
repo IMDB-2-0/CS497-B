@@ -11,7 +11,7 @@ Here's some tables we will need:
 ```
 --Movies will be uniquely identified by the unique movie ID we assign to them. Will need to coordinate to the data aggregator on this. More datafields can be added as necessary. Rating can tie into the ML rating system.
 
-create table movies(mid primary key, title varchar, year integer, directors varchar[], cast varchar[], about text, rating float, genre varchar); --b-tree on(title, year)?
+create table movies(mid primary key, title varchar, year integer, genre varchar); --b-tree on(title, year)?
 
 --users are generally uniquely identified by their emails. Then, passwords are stored in password digests generated from the frontend so that the password doesn't travel over any airwaves to the backend. Again, more fields as necessary.
 
