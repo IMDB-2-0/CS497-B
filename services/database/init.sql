@@ -3,7 +3,8 @@ create table movies(mid integer primary key, title varchar, year integer, genres
 create table users(email varchar primary key, password varchar, name varchar, liked integer[], recommended integer[]);
 
 ---you will need to edit this absolute path
+---FROM '/Users/erictrimble/Desktop/env/cs497s/TeamBProject/CS497-B/services/database/data/movies.csv'
 COPY movies(mid, title, year, genres)
-FROM '/Users/erictrimble/Desktop/env/cs497s/TeamBProject/CS497-B/services/database/data/movies.csv'
+FROM './data/movies.csv'
 DELIMITER ','
 CSV HEADER;
