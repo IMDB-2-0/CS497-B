@@ -15,6 +15,7 @@ import { milisecondsToSeconds } from './utils/dateTime';
 import store from "./redux/store";
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 
+/*
 if (localStorage.jwtToken && localStorage.jwtToken !== "undefined") {
   var retrievedObj = localStorage.getItem('jwtToken');
   var res = JSON.parse(retrievedObj);
@@ -30,6 +31,7 @@ if (localStorage.jwtToken && localStorage.jwtToken !== "undefined") {
     window.location.href = './login';
   }
 }
+*/
 
 function App() {
   
@@ -41,19 +43,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
+
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
           <main>
             <Switch>
-              <Route path="/login" component={Login} />
               <>
                 <Container
                   style={{
                     marginTop: '25px',
                     background: '#ffffff',
                   }}>
-                  <PrivateRoute path="/" component={Home} exact/>
+                  <Route path="/" component={Home} exact/>
                 </Container>
               </>
             </Switch>
@@ -64,3 +66,7 @@ function App() {
 }
 
 export default App;
+
+/*
+<Route path="/login" component={Login} />
+*/
