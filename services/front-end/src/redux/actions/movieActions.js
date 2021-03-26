@@ -14,3 +14,15 @@ export const fetchPopularMovies = page => dispatch => {
 }
 
 
+export function retrieveNowPlayingMovies(page) {
+	return function (dispatch) {
+		return axios.get(`${TMDB_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&page=${page}`)
+		.then(res => {
+			dispatch(retrieveNowPlayingMoviesSuccess(res));
+		})
+		.catch(error => {
+			console.log('Now Playing', error); //eslint-disable-line
+		});
+	};
+}
+
