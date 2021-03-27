@@ -32,12 +32,12 @@ const Home = ({ movies }) => {
 
     const viewMovie = (movieId) => {
 	}
+    // console.log
 
-    console.log(now_popular.results);
-    console.log(now_playing)
+    // console.log(now_popular.results);
+    // console.log(now_playing)
 
-    return (
-        <>
+            /*<>
             <Swiper
                 spaceBetween={50}
                 slidesPerView={3}
@@ -48,9 +48,17 @@ const Home = ({ movies }) => {
                 onSlideChange={() => console.log('slide change')}
                 >
                 {now_popular.results && now_popular.results.map(info => (
-                    <SwiperSlide>{info.title}</SwiperSlide>   
+                    <SwiperSlide>
+                        <MovieCard movie={info}/>
+                    </SwiperSlide>   
                 ))}
             </Swiper>
+                </>*/
+    return (
+        <>
+            {now_popular.results && now_popular.results.map(info => (
+                    <MovieCard movie={info}/>   
+            ))}
         </>
     );
 }
