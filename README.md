@@ -31,5 +31,5 @@ Exemplar files:
 
 - [Postgres (by Eric Trimble)](/exemplars/P1/postgres)
 
-- [Pipenv (by Hans Quiogue)](/exemplars/P1/pipenv)
+- [Pipenv (by Hans Quiogue)](/exemplars/P2/pipenv)
 
