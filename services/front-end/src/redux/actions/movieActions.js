@@ -13,16 +13,18 @@ export const fetchPopularMovies = page => dispatch => {
         ).catch(err => console.log(err));
 }
 
-
-export function retrieveNowPlayingMovies(page) {
-	return function (dispatch) {
-		return axios.get(`${TMDB_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&page=${page}`)
-		.then(res => {
-			dispatch(retrieveNowPlayingMoviesSuccess(res));
-		})
-		.catch(error => {
-			console.log('Now Playing', error); //eslint-disable-line
-		});
+export const retrieveNowPlayingMovies = page => dispatch => {
+		axios
+            .get(`${TMDB_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&page=${page}`)
+            .then(res => {
+                dispatch({
+                    type: RETRIEVE_NOWPLAYING_MOVIES_SUCCESS,
+                    payload: response.data
+                })
+            })
+            .catch(error => {
+                console.log('Now Playing', error); 
+            });
 	};
 }
 

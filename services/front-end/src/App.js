@@ -1,5 +1,5 @@
 import React from 'react';
-import jwtDecode from "jwt-decode";
+// import jwtDecode from "jwt-decode";
 import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { Container } from 'react-bootstrap';
@@ -9,8 +9,8 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 
 import PrivateRoute from './components/PrivateRoute';
-import setAuthToken from './utils/setAuthToken';
-import { milisecondsToSeconds } from './utils/dateTime';
+//import setAuthToken from './utils/setAuthToken';
+//import { milisecondsToSeconds } from './utils/dateTime';
 
 import store from "./redux/store";
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
@@ -35,6 +35,7 @@ if (localStorage.jwtToken && localStorage.jwtToken !== "undefined") {
 
 function App() {
   
+  /*
   let location = useLocation();
 
   React.useEffect(() => {
@@ -42,23 +43,25 @@ function App() {
     // childRef.current.init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
-
+  */
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
           <main>
             <Switch>
+              <Route path="/" component={Home} exact/>
+            </Switch>
+            {/*<Switch>
               <>
                 <Container
                   style={{
                     marginTop: '25px',
                     background: '#ffffff',
                   }}>
-                  <Route path="/" component={Home} exact/>
+                  
                 </Container>
               </>
-            </Switch>
+            </Switch>*/}
           </main>
         </Provider>
       </div>
