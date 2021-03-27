@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TMDB_URL, TMDB_IMG_URL, TMDB_API_KEY } from './../../Constants/Configs';
+import { TMDB_URL, TMDB_IMG_URL, TMDB_API_KEY } from '../constants/config';
 import styles from './MovieCard.css'
 
 const MovieCard = ({ info, viewMovie }) => {
