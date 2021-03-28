@@ -1,0 +1,92 @@
+.linearGradient {
+    top: 0;
+    left: 0;
+    right: 0;
+	height: 248;
+	position: 'absolute';
+};
+
+.imageBackdrop {
+    height: 248;
+    background-color: 'black';
+};
+
+.cardContainer {
+    position: 'absolute';
+    top: 32;
+    right: 16;
+    left: 16;
+}
+
+
+.cardImage {
+    height: 184;
+    width: 135;
+    border-radius: 3;
+};
+
+.cardDetails {
+    padding-left: 10;
+    flex: 1;
+};
+
+.cardTitle {
+    color: 'white';
+    font-size: 19;
+    font-weight: '500';
+    padding-top: 0;
+}
+
+/*
+cardGenre {
+    flexDirection: 'row'
+};
+*/
+
+.cardGenreItem {
+    font-size: 11;
+    margin-right: 5;
+    color: 'white';
+}
+
+.cardDescription {
+    color: '#f7f7f7';
+    font-size: 13;
+    margin-top: 5;
+}
+
+/*
+cardNumbers: {
+    flexDirection: 'row',
+    marginTop: 5
+}
+
+cardStar: {
+    flexDirection: 'row'
+}
+*/
+
+.cardStarRatings {
+    margin-left: 5;
+    font-size: 12;
+    color: 'white';
+}
+
+.cardRunningHours {
+    margin-left: 5;
+    font-size: 12;
+}
+
+.viewButton {
+    justify-content: 'center';
+    padding: 10;
+    border-radius: 3;
+    background-color: '#EA0000';
+    width: 100;
+    height: 50;
+    margin-top: 10;
+}
+
+.viewButtonText {
+    color: 'white'
+}
