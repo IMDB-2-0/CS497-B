@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const path = require('path');
-const multer = require('multer');
+// const multer = require('multer');
 require('dotenv').config({ path: path.resolve(__dirname, './config/.env') });
 
 const auth = require('./routes/auth');
