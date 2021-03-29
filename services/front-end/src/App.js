@@ -49,7 +49,8 @@ function App() {
         <Provider store={store}> 
           <main>
             <Switch>
-              <Route path="/" component={Home} exact/>
+              <Route path="/" component={Login} exact/>
+              <Route path="/home" component={Home} />
             </Switch>
             {/*<Switch>
               <>
