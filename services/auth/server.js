@@ -13,7 +13,7 @@ const port = 8000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/auth', login);
+app.use('/auth', auth);
 
 // Set static folder
 app.use(express.static('../../front-end/build'));
