@@ -76,10 +76,10 @@ def userExists(user):
     Returns:
         a boolean on whether or not a user exists in storage
     '''
-    return True if user.lower() in fake_storage else False
+    return user.lower() in fake_storage
 
 
 if __name__ == '__main__':
     # TODO Remove debug mode after development
     app.debug = True
-    # app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
