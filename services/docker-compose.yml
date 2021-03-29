@@ -25,18 +25,16 @@ services:
       dockerfile: Dockerfile
     links:
       - postgresdb
-    volumes:
-      - ./:/usr/src/app
     ports:
       - "3000:3000"
-  auth:
-    build: 
-      context: auth
-      dockerfile: Dockerfile
-    links:
-      - postgresdb
-    volumes:
-      - ./:/usr/src/app
-    ports:
-      - "8000:8000"
+  # auth:
+  #   build: 
+  #     context: auth
+  #     dockerfile: Dockerfile
+  #   links:
+  #     - postgresdb
+  #   volumes:
+  #     - ./:/usr/src/app
+  #   ports:
+  #     - "8000:8000"
   

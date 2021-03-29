@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const express = require("express");
 const authRouter = express.Router();
-const User = require('../models/User');
+// const User = require('../models/User');
 
 const { OAuth2Client, UserRefreshClient } = require('google-auth-library');
 
