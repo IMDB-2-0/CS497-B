@@ -20,16 +20,24 @@ that we haven't decided yet to recommend information based on user preferences.
 update their information. It's important for users to have some of
 these features for reasons related to customization and security.
 
+---
+
 Exemplar files:
-- [Docker (by Abhinav Tripathy)](/exemplars/P1/docker)
 
-- [Flask (by Timothy Nguyen)](/exemplars/P1/flask)
+- P1: 
 
-- [Express.js (by Hans Quiogue)](/exemplars/P1/node-express)
+    - [Docker Compose (by Abhinav Tripathy)](/exemplars/P1/docker)
 
-- [React (by Timothy Nguyen)](/exemplars/P1/react)
+    - [Flask (by Timothy Nguyen)](/exemplars/P1/flask)
 
-- [Postgres (by Eric Trimble)](/exemplars/P1/postgres)
+    - [Express.js (by Hans Quiogue)](/exemplars/P1/node-express)
 
-- [Pipenv (by Hans Quiogue)](/exemplars/P2/pipenv)
+    - [React (by Timothy Nguyen)](/exemplars/P1/react)
 
+    - [Postgres / DB Schema (by Eric Trimble)](/exemplars/P1/postgres)
+
+- P2:
+
+    - [Pipenv (by Hans Quiogue)](/exemplars/P2/pipenv)
+
+    - [Postgres / DB Initialization (by Eric Trimble)](/exemplars/P2/postgres)
