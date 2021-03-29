@@ -80,4 +80,3 @@ def userExists(user):
 if __name__ == '__main__':
     # TODO Remove debug mode after development
     app.debug = True
-    app.run()
