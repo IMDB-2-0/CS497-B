@@ -18,8 +18,8 @@ def db_credentials_found():
     return POSTGRES_HOST is not None or POSTGRES_DB is not None \
         or POSTGRES_USER is not None or POSTGRES_PASS is not None
 
-
-async def connect_to_db(db = 'postgres'):
+# TODO: Convert to async?
+def connect_to_db(db = 'postgres'):
     '''
     Connects to database
 
@@ -51,20 +51,20 @@ async def connect_to_db(db = 'postgres'):
         print('An error has occured connecting to the database or "' + POSTGRES_DB + '" does not exist.')
     return connection
 
-
 # TODO: Eventually split databases
-async def create_db():
+# TODO: Convert to async?
+def create_db():
     '''
     Creates the user and media database if it does not exist.
     Database name is based on environment variable POSTGRES_DB
     '''
     # Connects to database based on environment variable 
-    connection = await connect_to_db(POSTGRES_DB)
+    connection = connect_to_db(POSTGRES_DB)
 
     # Database does not exist
     if connection is None:
         # Connect based on default settings
-        connection = await connect_to_db()
+        connection = connect_to_db()
         connection.autocommit = True
 
         # Connection based on default settings went okay
