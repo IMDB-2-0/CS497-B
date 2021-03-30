@@ -29,9 +29,9 @@ Once the client uses something from the interface, a request will be made to our
 
 Depending on what the client requested, up to three services can be called: user authentication and management, the user and media database, and the recommendation system. The first listed service was created in Node.js and uses Google’s Authentication. We hoped that by using Google, we would allow time to produce a better product as we no longer have to worry about creating our own authentication system. In order to access our databases and recommendation system, a user will need to be authenticated first. 
 
-The next listed service is our database. This was created with PostgreSQL and sample media data was gathered from [GroupLens](https://grouplens.org/datasets/movielens/). Flask was also used to connect and manage the database. We decided to use this technology for its performance, stability and ease of use.   
+The next listed service is our database. This was created with PostgreSQL and sample media data was gathered from [GroupLens](https://grouplens.org/datasets/movielens/). Flask was also used to connect and manage the database. We decided to use this technology for its performance, stability and ease of use. However, as Flask does not support asynchronous calls, we will possibly change the technology for this service in the future. 
 
-The last service is our recommendation system. Here, we did not manage to implement it yet so we generated random outcomes from our database. Eventually, we would like to use Flask or any Python library as the recommender will be created in Python. 
+The last service is our recommendation system. Here, we did not manage to implement it yet so we generated random outcomes from fake data. Eventually, we would like to use Flask or any Python library as the recommender will be created in Python. 
 
 Finally, all of our microservices will be containerized with Docker—to avoid breaking changes between services, and easily implement all of our services in our preferred technologies—and hosted on AWS for its pricing, great performance and flexibility. 
 
