@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS, cross_origin
-import random
+import random, requests
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -61,6 +61,25 @@ def recommend_movie():
         response = { 'message':  'Movie recommendation generated for ' + username, 'recommendation' : rec}
         status = 200
         
+    # Send response
+    return make_response(jsonify(response), status)
+
+# Connect to database / check status
+
+@app.route('/database/connect')
+def connect_db():
+    # Request database status from database services 
+    # TODO: not to hardcode or use localhost...
+    response = requests.get('http://localhost:5001/database/connect')
+    
+    # Successful
+    if response.status_code == 200:
+        response = { 'message':  'Database is online and connected successfully.' }
+        status = 200
+    else:
+        response = { 'message':  'An error has occurred connecting to the database.' }
+        status = 400
+    
     # Send response
     return make_response(jsonify(response), status)
 

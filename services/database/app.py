@@ -28,4 +28,4 @@ def connect():
 if __name__ == '__main__':
     # TODO Remove debug mode after deployment
     app.debug = True
-    # app.run()
+    # app.run(port = 5001)
