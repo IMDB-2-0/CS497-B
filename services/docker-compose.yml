@@ -9,6 +9,25 @@ services:
     volumes:
       - ./database/data:/var/lib/postgresql/data/
       - ./database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+    ports:
+      - "5432"
+  api-db:
+    build:
+      context: database
+      dockerfile: Dockerfile # TODO
+    depends_on: 
+      - postgresdb
+    # TODO: configure instead with an env_file?
+    # Also reused from container above..
+    environment: 
+      - POSTGRES_HOST=localhost
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=users_and_media
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./:/usr/src/app
   recommender:
     build: 
       context: recommender
@@ -37,4 +56,3 @@ services:
   #     - ./:/usr/src/app
   #   ports:
   #     - "8000:8000"
-  
