@@ -1,12 +1,10 @@
 import psycopg2, os
-from dotenv import load_dotenv
 
 # Retrieving DB credientials via env variables
-load_dotenv()
-POSTGRES_HOST = os.getenv('POSTGRES_HOST')
-POSTGRES_DB = os.getenv('POSTGRES_DB')
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASS = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_HOST = os.environ['POSTGRES_HOST']
+POSTGRES_DB = os.environ['POSTGRES_DB']
+POSTGRES_USER = os.environ['POSTGRES_USER']
+POSTGRES_PASS = os.environ['POSTGRES_PASSWORD']
 
 def db_credentials_found():
     '''

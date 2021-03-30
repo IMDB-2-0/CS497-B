@@ -5,7 +5,8 @@ from db import connect_to_db, create_db, db_credentials_found
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 
-# Checks database status
+# Connect to database 
+# TODO: Only works locally...
 # TODO: Edit API endpoint name?
 # TODO: Async? (flask on its own does not support async..)
 @app.route('/database/connect', methods=['GET'])
@@ -23,6 +24,11 @@ def connect():
     
     # Send response
     return make_response(jsonify(response), status)
+
+
+@app.route('/database/status', methods=['GET'])
+def status():
+    return make_response(jsonify({ 'message':  'Database is online.' }), 200)
 
 
 if __name__ == '__main__':

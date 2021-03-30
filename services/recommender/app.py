@@ -64,17 +64,33 @@ def recommend_movie():
     # Send response
     return make_response(jsonify(response), status)
 
-# Connect to database / check status
+# Gets database status
+@app.route('/database/status')
+def status_db():
+    response = requests.get('https://localhost:5005/database/status')
 
+    # Successful
+    if response.status_code == 200:
+        response = { 'message':  'Database is online.' }
+        status = 200
+    else:
+        response = { 'message':  'An error has occurred connecting to the database.' }
+        status = 400
+    
+    # Send response
+    return make_response(jsonify(response), status)
+
+# Connect to database / check status
+# TODO: Endpoint does not work
 @app.route('/database/connect')
 def connect_db():
     # Request database status from database services 
     # TODO: not to hardcode or use localhost...
-    response = requests.get('http://localhost:5001/database/connect')
+    response = requests.get('http://localhost:5005/database/connect')
     
     # Successful
     if response.status_code == 200:
-        response = { 'message':  'Database is online and connected successfully.' }
+        response = { 'message':  'Connected successfully.' }
         status = 200
     else:
         response = { 'message':  'An error has occurred connecting to the database.' }
