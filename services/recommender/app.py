@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
 import random
 
 app = Flask(__name__)
-
+CORS(app, support_credentials=True)
 # TODO Remove/replace with data from db/IMBD api
 fake_storage = []
 fake_movie_rec = ["Shrek", "Shrek 2", "Shrek 3"]
@@ -10,11 +11,12 @@ fake_movie_rec = ["Shrek", "Shrek 2", "Shrek 3"]
 ### Routes ###
 
 # Homepage
-@app.route('/')
+@app.route('/', methods = ["GET"])
+@cross_origin(supports_credentials=True)
 def index():
     # TODO Return homepage 
-    response = { 'message': 'under construction.' }
-    return make_response(jsonify(response), 404)
+    response = {"message": 'Message sent from server.'}
+    return make_response(jsonify(response), 200)
     
 # Creating a user
 @app.route('/create/user', methods = ['PUT'])
@@ -80,3 +82,4 @@ def userExists(user):
 if __name__ == '__main__':
     # TODO Remove debug mode after development
     app.debug = True
+    # app.run(debug=True, host='0.0.0.0')

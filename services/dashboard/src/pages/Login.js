@@ -18,10 +18,12 @@ const Login = ({auth, loginUserAction, history, errors}) => {
     }
     const {REACT_APP_GOOGLE_CLIENT_ID} = process.env;
 
+    /*
     if(auth.isAuthenticated) {
         history.push('/');
     }
-
+    */
+   
     return (
         <>
             <GoogleLogin
