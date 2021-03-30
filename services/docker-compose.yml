@@ -13,8 +13,6 @@ services:
     build: 
       context: recommender
       dockerfile: Dockerfile
-    links:
-      - postgresdb
     volumes:
       - ./:/usr/src/app
     ports:
@@ -23,16 +21,12 @@ services:
     build: 
       context: dashboard
       dockerfile: Dockerfile
-    links:
-      - postgresdb
     ports:
       - "3000:3000"
   # auth:
   #   build: 
   #     context: auth
   #     dockerfile: Dockerfile
-  #   links:
-  #     - postgresdb
   #   volumes:
   #     - ./:/usr/src/app
   #   ports:
