@@ -1,3 +1,4 @@
+[![Dashboard CI](https://github.com/IMDB-2-0/CS497-B/actions/workflows/node.js.yml/badge.svg)](https://github.com/IMDB-2-0/CS497-B/actions/workflows/node.js.yml)
 # CS497-B
 
 Our project is to create a service to recommender systems for
