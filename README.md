@@ -33,3 +33,8 @@ Exemplar files:
 
 - [Pipenv (by Hans Quiogue)](/exemplars/P2/pipenv)
 
+- [Redux (by Timothy Nguyen)](/exemplars/P2/redux)
+
+- [TMDB API (by Timothy Nguyen)](/exemplars/P2/tmdb-api)
+
+
