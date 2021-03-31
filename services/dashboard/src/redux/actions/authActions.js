@@ -17,23 +17,24 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 
 
 export const loginUser = (googleData, history) => async(dispatch) => {
-    await axios.post('/auth/login', {token: googleData.tokenId})
+    await axios.post('http://localhost:8000/auth/login', JSON.stringify({token: googleData.tokenId}))
     .then((res) => {
         if (res.status === 400) {
           // eslint-disable-next-line no-console
           console.log(res.json());
         }
         message.success('Login successful!');
-        const { access_token } = res.data.data;
+       // const { access_token } = res.data.data;
+        console.log(res);
         // Set token to auth header
-        setAuthToken(access_token);
+        //setAuthToken(access_token);
         // console.log(res.data.data)
         // Decode token to get user data
-        const decoded = jwtDecode(access_token);
+        //const decoded = jwtDecode(access_token);
         // Set current user
-        dispatch(setCurrentUser(decoded.user));
+        //dispatch(setCurrentUser(decoded.user));
         // Set token to localStorage
-        localStorage.setItem('jwtToken', JSON.stringify(res.data));
+        //localStorage.setItem('jwtToken', JSON.stringify(res.data));
         // localStorage.setItem('user', decoded.user);
         // Add possible message
         message.success('Login Successful');
@@ -42,7 +43,7 @@ export const loginUser = (googleData, history) => async(dispatch) => {
     }).catch((err) => {
         dispatch({
             type: GET_ERRORS,
-            payload: err.response.data,
+            payload: err.response,
         });
     })
 };

@@ -1,20 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { GoogleLogin } from 'react-google-login'
-import { Form, Input, Button, message } from 'antd';
+import PropTypes from  'prop-types';
+import { connect } from  'react-redux';
+import { GoogleLogin } from  'react-google-login';
+import { Form, Input, Button, message } from  'antd';
 
-import { loginUser } from '../redux/actions/authActions';
+import { loginUser } from  '../redux/actions/authActions';
+
+const handleLogin = async googleData => {
+    const res = await fetch("http://localhost:8000/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+        token: googleData.tokenId
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await res.json();
+    console.log(data);
+  }
 
 const Login = ({auth, loginUserAction, history, errors}) => {
 
-    const onSuccess = (res) => {
-        console.log("Login success! :", res);
-        loginUserAction(res, errors);
+    const onSuccess = googleData => {
+        console.log("Login success! :", googleData);
+        loginUserAction(googleData, errors);
     }
-    const onFailure = (res) => {
+    const onFailure = googleData => {
         message.error('Cannot login. Server may not be running');
-        console.log("Login failed! :", res);
+        console.log("Login failed! :", googleData);
     }
     const {REACT_APP_GOOGLE_CLIENT_ID} = process.env;
 
@@ -23,15 +37,15 @@ const Login = ({auth, loginUserAction, history, errors}) => {
         history.push('/');
     }
     */
-   
+
     return (
         <>
             <GoogleLogin
-                clientId={REACT_APP_GOOGLE_CLIENT_ID}
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Sign in with Google"
                 className="ct-button ct-button--secondary"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
+                onSuccess={handleLogin}
+                onFailure={handleLogin}
                 cookiePolicy="single_host_origin"
             />
         </>
@@ -44,9 +58,9 @@ Login.propTypes = {
       push: PropTypes.func.isRequired,
     }).isRequired,
     // eslint-disable-next-line react/forbid-prop-types
-    auth: PropTypes.object.isRequired,
+    //auth: PropTypes.object.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
-    errors: PropTypes.object.isRequired,
+    //errors: PropTypes.object.isRequired,
   };
   
   const mapStateToProps = (state) => ({
