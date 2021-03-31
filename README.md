@@ -21,20 +21,25 @@ update their information. It's important for users to have some of
 these features for reasons related to customization and security.
 
 Exemplar files:
-- [Docker (by Abhinav Tripathy)](/exemplars/P1/docker)
 
-- [Flask (by Timothy Nguyen)](/exemplars/P1/flask)
+- P1:
 
-- [Express.js (by Hans Quiogue)](/exemplars/P1/node-express)
+    - [Docker (by Abhinav Tripathy)](/exemplars/P1/docker)
 
-- [React (by Timothy Nguyen)](/exemplars/P1/react)
+    - [Flask (by Timothy Nguyen)](/exemplars/P1/flask)
 
-- [Postgres (by Eric Trimble)](/exemplars/P1/postgres)
+    - [Express.js (by Hans Quiogue)](/exemplars/P1/node-express)
 
-- [Pipenv (by Hans Quiogue)](/exemplars/P2/pipenv)
+    - [React (by Timothy Nguyen)](/exemplars/P1/react)
 
-- [Redux (by Timothy Nguyen)](/exemplars/P2/redux)
+    - [Postgres Schema (by Eric Trimble)](/exemplars/P1/postgres)
 
-- [TMDB API (by Timothy Nguyen)](/exemplars/P2/tmdb-api)
+- P2: 
 
+    - [Pipenv (by Hans Quiogue)](/exemplars/P2/pipenv)
 
+    - [Postgres Initialization (by Eric Trimble)](/exemplars/P2/postgres)
+
+    - [Redux (by Timothy Nguyen)](/exemplars/P2/redux)
+
+    - [TMDB API (by Timothy Nguyen)](/exemplars/P2/tmdb-api)
