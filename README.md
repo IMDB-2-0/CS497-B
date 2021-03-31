@@ -43,3 +43,5 @@ Exemplar files:
     - [Redux (by Timothy Nguyen)](/exemplars/P2/redux)
 
     - [TMDB API (by Timothy Nguyen)](/exemplars/P2/tmdb-api)
+    
+    - [Docker (by Abhinav Tripathy)](/exemplars/P2/docker)
