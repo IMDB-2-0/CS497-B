@@ -10,7 +10,7 @@ services:
       - ./database/data:/var/lib/postgresql/data/
       - ./database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
   gateway:
-    build: 
+    build:
       context: gateway
       dockerfile: Dockerfile
     links:
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./:/usr/src/app
     ports:
-      - "5000:5000"
+      - "5001:5000"
   dashboard:
     build: 
       context: dashboard
@@ -27,6 +27,25 @@ services:
       - postgresdb
     ports:
       - "3000:3000"
+  recommender:
+    build: 
+      context: recommender
+      dockerfile: Dockerfile
+    links:
+      - postgresdb
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "5002:5000"
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./nginx_config.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - gateway
+      - recommender
   # auth:
   #   build: 
   #     context: auth
@@ -37,4 +56,3 @@ services:
   #     - ./:/usr/src/app
   #   ports:
   #     - "8000:8000"
-  
