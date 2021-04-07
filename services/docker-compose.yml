@@ -9,9 +9,9 @@ services:
     volumes:
       - ./database/data:/var/lib/postgresql/data/
       - ./database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
-  recommender:
+  gateway:
     build: 
-      context: recommender
+      context: gateway
       dockerfile: Dockerfile
     links:
       - postgresdb
