@@ -23,7 +23,7 @@ const Home = ({ movies }) => {
 
     const handleShow = async() => {
         await axios
-            .get('http://localhost:5000/')
+            .get('http://localhost:5001/api/v1')
             .then(res => {
                 // console.log(res);
                 setData(res.data.message);
