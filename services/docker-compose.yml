@@ -9,6 +9,8 @@ services:
     volumes:
       - ./database/data:/var/lib/postgresql/data/
       - ./database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+    ports:
+      - "34532:5432"
   gateway:
     build:
       context: gateway
@@ -37,6 +39,23 @@ services:
       - ./:/usr/src/app
     ports:
       - "5002:5000"
+  database-api:
+    build:
+      context: database/api
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresdb
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "5003:5000"
+    environment:
+      PRODUCTION: "yes"
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgresdb
+      DB_PORT: "5432"
+      DB_DATABASE: postgres
   nginx:
     image: nginx:alpine
     ports:
@@ -46,6 +65,7 @@ services:
     depends_on:
       - gateway
       - recommender
+      - database-api
   # auth:
   #   build: 
   #     context: auth
