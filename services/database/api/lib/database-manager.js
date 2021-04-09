@@ -37,8 +37,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMovies = void 0;
-var getMovies = function (req, resp, limit) { return __awaiter(void 0, void 0, void 0, function () {
+var database_1 = require("./database");
+var getMovies = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, limit;
     return __generator(this, function (_a) {
+        user = req.body['user'];
+        limit = req.body['limit'] === undefined ? 10 : req.body['limit'];
+        database_1.pool.query('SELECT * FROM movies LIMIT ' + limit, function (error, results) {
+            if (error)
+                throw error;
+            return res.status(200).json(results.rows);
+        });
         return [2 /*return*/];
     });
 }); };

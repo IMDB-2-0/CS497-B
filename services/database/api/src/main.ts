@@ -4,7 +4,7 @@ import cors from 'cors';
 import { errors } from 'celebrate';
 
 const app = express();
-const port = 5003;
+const port = 5000;
 const host = '0.0.0.0';
 
 // Middlewares

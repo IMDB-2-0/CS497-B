@@ -35,24 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = require("express");
-var celebrate_1 = require("celebrate");
+var database_manager_1 = require("./database-manager");
+var models_1 = require("./models");
 exports.router = express_1.Router();
 exports.router.get('/status', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, res.status(200).json({ message: 'Database API is running.' })];
     });
 }); });
-exports.router.post('/get-movies', celebrate_1.celebrate((_a = {},
-    _a[celebrate_1.Segments.BODY] = celebrate_1.Joi.object().keys({
-        user: celebrate_1.Joi.string().required(),
-        limit: celebrate_1.Joi.number().integer()
-    }),
-    _a)), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/, res.status(200).json({ 'what': 'what' })];
-    });
-}); });
+exports.router.post('/get-movies', models_1.moviesIn, database_manager_1.getMovies);

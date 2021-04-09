@@ -8,7 +8,7 @@ var routes_1 = require("./routes");
 var cors_1 = __importDefault(require("cors"));
 var celebrate_1 = require("celebrate");
 var app = express_1.default();
-var port = 8080;
+var port = 5000;
 var host = '0.0.0.0';
 // Middlewares
 app.use(express_1.default.json());
