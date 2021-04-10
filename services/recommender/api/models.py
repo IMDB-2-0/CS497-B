@@ -8,7 +8,7 @@ class Movie(BaseModel):
 
 class RecommenderIn(BaseModel):
     user: str
-    movies_liked: Optional[List[Movie]] = None
+    # movies_liked: Optional[List[Movie]] = None
 
 class RecommenderOut(BaseModel):
     # Should technically be a list of movies --> movies: List[Movie]
