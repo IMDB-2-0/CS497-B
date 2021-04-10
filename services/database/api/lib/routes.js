@@ -39,11 +39,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = require("express");
 var database_manager_1 = require("./database-manager");
-var models_1 = require("./models");
 exports.router = express_1.Router();
 exports.router.get('/status', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, res.status(200).json({ message: 'Database API is running.' })];
     });
 }); });
-exports.router.post('/get-movies', models_1.moviesIn, database_manager_1.getMovies);
+exports.router.post('/get-movies', database_manager_1.getMovies);

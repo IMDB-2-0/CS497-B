@@ -41,8 +41,10 @@ var database_1 = require("./database");
 var getMovies = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, limit;
     return __generator(this, function (_a) {
+        console.log(req.body);
         user = req.body['user'];
         limit = req.body['limit'] === undefined ? 10 : req.body['limit'];
+        // Retrieves a number of movies based on limit
         database_1.pool.query('SELECT * FROM movies LIMIT ' + limit, function (error, results) {
             if (error)
                 throw error;
