@@ -27,7 +27,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env PORT=5000 react-scripts start",
     "build": "react-scripts build",
     "test": "",
     "eject": "react-scripts eject"
@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "redux-devtools": "^3.7.0"
   }
 }

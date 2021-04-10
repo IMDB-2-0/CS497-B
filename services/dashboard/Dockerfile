@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install
+RUN npm i
 
-EXPOSE 3000
+EXPOSE 5000
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "run", "start"]
