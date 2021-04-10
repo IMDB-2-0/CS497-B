@@ -8,6 +8,7 @@ fastapi = "*"
 typing = "*"
 pydantic = "*"
 uvicorn = "*"
+httpx = "*"
 
 [dev-packages]
 
