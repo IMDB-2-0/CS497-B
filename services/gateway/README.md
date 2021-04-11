@@ -1,43 +1,18 @@
-# Gateway (currently outdated)
+# API Gateway 
 
-Flask in Python is used for routing our services together. Pipenv is also used to help manage our Python backend dependencies.
+Our team created an API Gateway with [NGINX](https://www.nginx.com). With NGINX, we hope to create a reverse proxy to easily accept all API calls and return the proper responses between our services. We used a Docker image of NGINX to install and use it. We also created a .conf file that lists the NGINX configurations needed to run and manage all of our services.
 
-For now, our group mocked up one service in [app.py](/app.py). Eventually we might decide to split up all our routes into various microservices for various other services we implement in the future.
+In the future, we aim to potentially use NGINX for load balancing and other features, but for now, we are using it is as a simple API gateway. We might also create two API gateways between our web and mobile dashboards when they are eventually created—to form a backends for frontends setup.
 
-### **API**
+# Installation and Build
 
-We currently created a prototype routing service with generic endpoints:
-
-/create/user
-
-- Create a new user
-- Type of request: PUT
-- Parameters:
-    - username (required): username to create
-
-/recommend
-
-- Recommend a movie for a user
-- Type of request: POST
-- Parameters:
-    - username (required): username to generate movie recomendation
-
-### Installation, Build, and Running the Service
-
-We use pipenv to manage or virtual environments and packages. If you don't have it installed you may do so first:
-
-> pip install pipenv
-
-Once that's done, you may spawn a shell inside this directory:
-
-> pipenv shell
-
-Afterwards install the required dependencies:
-
-> pipenv install
-
-And finally you may run the service:
-
-> python app.py
-
-You may access the service with `localhost:5000` and use the API above as a guide. At the moment, you may use curl or other tool to try out our implemented endpoints.
+- Prerequisites:
+    - Docker
+    
+1) Build and run our entire app with Docker Compose.
+    - In the `services` directory, run `docker-compose build`.
+2) Run all the Docker containers with `docker-compose up`.
+3) Once everything is up, you may access various parts of the application with the following links:
+    - Dashboard: http://localhost:5050
+    - Recommender: http://localhost:5050/api/v1/recommender
+    - Database API: http://localhost:5050/api/v1/database
