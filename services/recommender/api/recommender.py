@@ -24,12 +24,12 @@ async def recommend_movie(payload: RecommenderIn = None):
 
     async with httpx.AsyncClient() as client:
         # TODO: Modify port? (Currently only works with Docker Compose with nginx setup..)
-        response = await client.post('http://' + host + ':5000/api/v1/database/get-movies', json = payload)
+        response = await client.get('http://' + host + ':5000/api/v1/database/movies')
         response = response.json()
 
     # TODO: Update with actual recommendation engine
     selected_movie = response
-    rand_id = randint(1, 10)
+    rand_id = randint(1, 30)
     selected_movie = list(filter(lambda movie: movie['mid'] == rand_id, selected_movie))
 
     return { 'movie': selected_movie[0]['title'] }
