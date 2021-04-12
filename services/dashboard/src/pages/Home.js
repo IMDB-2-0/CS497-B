@@ -21,9 +21,12 @@ const Home = ({ movies }) => {
 
     const { now_playing, now_popular } = movies;
 
+    // TODO: Edit and make work with nginx (problem with CORS in nginx config)
+    const link = 'http://localhost:5002/api/v1/recommender/status'
+    
     const handleShow = async() => {
         await axios
-            .get('http://localhost:5000/')
+            .get(link)
             .then(res => {
                 // console.log(res);
                 setData(res.data.message);

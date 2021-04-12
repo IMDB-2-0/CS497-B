@@ -4,7 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
+fastapi = "*"
+typing = "*"
+pydantic = "*"
+uvicorn = "*"
+httpx = "*"
 
 [dev-packages]
 
