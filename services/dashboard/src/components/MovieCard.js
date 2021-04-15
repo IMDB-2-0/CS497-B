@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TMDB_URL, TMDB_IMG_URL, TMDB_API_KEY } from '../constants/config';
-import styles from './MovieCard.css'
+import styles from './MovieCard.css';
+import { Button } from 'antd';
+import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 
 const MovieCard = ({ movie }) => {
     // console.log(movie)
@@ -13,7 +15,11 @@ const MovieCard = ({ movie }) => {
             <img src= {`${TMDB_IMG_URL}/w780/${(movie.backdrop_path || movie.poster_path)}`} className="thumbnail" alt="Poster" />
           </div>
           <div className="col-md-8">
-            <h2 className="mb-4">{movie.original_title}</h2>
+            <div className="row">
+              <div className="col-md-8"><h2 className="mb-4">{movie.original_title}</h2></div>
+              <div className="col-md-4"><Button icon = {<LikeOutlined style={{ fontSize: '64px'}} /*onClick = addLike*//>}></Button><Button icon = {<DislikeOutlined style={{ fontSize: '64px'}} /*onClick = addLike*//>}></Button></div>
+            </div>
+            
             <ul className="list-group">
               <li className="list-group-item">
                 <strong>Released:</strong> {movie.release_date}

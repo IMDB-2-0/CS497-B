@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://nginx:5050/",
   "dependencies": {
+    "@ant-design/compatible": "^1.0.8",
+    "@ant-design/icons": "^4.6.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -11,6 +13,8 @@
     "antd-img-crop": "^3.14.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "docker": "^1.0.0",
+    "docker-compose": "^0.23.7",
     "dotenv": "^8.2.0",
     "jwt-decode": "^3.1.2",
     "prop-types": "^15.7.2",
