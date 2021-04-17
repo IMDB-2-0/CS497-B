@@ -13,7 +13,7 @@ const Login = ({auth, loginUserAction, history, errors}) => {
     const onSuccess = async googleData => {
         console.log("Hi! :", googleData);
         console.log(googleData.tokenId);
-        axios.post("/auth/googlelogin", 
+        axios.post("http://nginx:5050/api/v1/auth/googlelogin", 
         {tokenId: googleData.tokenId})
         .then((res) => {
           // history.push("/")

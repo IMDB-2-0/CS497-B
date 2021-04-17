@@ -14,7 +14,7 @@ app.use(cors());
 // app.use(errors());
 
 // Allows routes to be used
-app.use('/auth', router);
+app.use('/api/v1/auth', router);
 
 // Listens on specified port and host
 app.listen(port, host, () => {
