@@ -4,7 +4,7 @@ const cors = require('cors');
 // const errors = require('celebrate');
 
 const app = express();
-const port = process.env.PORT || 5004;
+const port = process.env.PORT || 5000;
 const host = '0.0.0.0';
 
 // Middlewares

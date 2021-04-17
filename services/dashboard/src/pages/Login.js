@@ -13,13 +13,13 @@ const Login = ({auth, loginUserAction, history, errors}) => {
     const onSuccess = async googleData => {
         console.log("Hi! :", googleData);
         console.log(googleData.tokenId);
-        axios.post("http://nginx:5050/api/v1/auth/googlelogin", 
+        axios.post("/api/v1/auth/googlelogin", 
         {tokenId: googleData.tokenId})
         .then((res) => {
           // history.push("/")
-          if (res.status === 400) {
+          if (res.status === 200) {
             // eslint-disable-next-line no-console
-            console.log(res.json());
+            console.log(res);
           }
     
         })

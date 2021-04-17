@@ -9,16 +9,16 @@ const router = express.Router();
 router.post('/googlelogin',  (req, res) => {
     const { tokenId } = req.body;
 
-    console.log(req.body);
+    // console.log(req.body);
     // Sconsole.log("Token arrived at server: " + token);
-    console.log(process.env.GOOGLE_LOGIN)
+    // console.log(process.env.GOOGLE_LOGIN)
     client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.GOOGLE_LOGIN
     }).then(response => {
-        // const {email_verified, name, email} = response.payload;
-        print("hi " + response.payload);
-        res.status(200).json({result: token});
+        const {email_verified, name, email} = response.payload;
+        console.log(response);
+        res.status(200).json({result: "success"});
     }).catch(err => {
         console.log(err);
         res.status(400).json({ message: err});
