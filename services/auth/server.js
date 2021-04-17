@@ -1,7 +1,7 @@
-import express from 'express';
-import { router } from './routes';
-import cors from 'cors';
-import { errors } from 'celebrate';
+const express = require('express');
+const router = require('./routes');
+const cors = require('cors');
+const errors = require('celebrate');
 
 const app = express();
 const port = process.env.PORT || 5004;
