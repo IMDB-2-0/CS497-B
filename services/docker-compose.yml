@@ -41,6 +41,16 @@ services:
       - ./:/usr/src/app
     ports:
       - "5003:5000"
+  auth:
+    build:
+      context: auth
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresdb
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "5004:5000"
   nginx:
     image: nginx:alpine
     ports:

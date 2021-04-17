@@ -1,7 +1,7 @@
 const express = require('express');
 const router = require('./routes');
 const cors = require('cors');
-const errors = require('celebrate');
+// const errors = require('celebrate');
 
 const app = express();
 const port = process.env.PORT || 5004;
@@ -11,10 +11,10 @@ const host = '0.0.0.0';
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use(errors());
+// app.use(errors());
 
 // Allows routes to be used
-app.use('/api/v1/auth', router);
+app.use('/auth', router);
 
 // Listens on specified port and host
 app.listen(port, host, () => {

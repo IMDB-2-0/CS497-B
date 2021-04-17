@@ -6,47 +6,47 @@ import { Form, Input, Button, message } from  'antd';
 
 import { loginUser } from  '../redux/actions/authActions';
 
-const handleLogin = async googleData => {
-    const res = await fetch("http://localhost:8000/auth/login", {
-        method: "POST",
-        body: JSON.stringify({
-        token: googleData.tokenId
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    const data = await res.json();
-    console.log(data);
-  }
 
 const Login = ({auth, loginUserAction, history, errors}) => {
 
-    const onSuccess = googleData => {
-        console.log("Login success! :", googleData);
-        loginUserAction(googleData, errors);
+    const onSuccess = async googleData => {
+        console.log("Hi! :", googleData);
+        console.log(googleData.tokenId);
+        const res = await fetch("/auth/googlelogin", {
+          method: "POST",
+          body: JSON.stringify({
+          token: googleData.tokenId
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await res.json();
+      console.log(data);
+        
     }
+
     const onFailure = googleData => {
         message.error('Cannot login. Server may not be running');
         console.log("Login failed! :", googleData);
     }
+
     const {REACT_APP_GOOGLE_CLIENT_ID} = process.env;
 
-    /*
-    if(auth.isAuthenticated) {
-        history.push('/');
-    }
-    */
-
+    
+    // if(auth.isAuthenticated) {
+    //     history.push('/');
+    // }
+  
     return (
         <>
             <GoogleLogin
-                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                clientId={REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Sign in with Google"
                 className="ct-button ct-button--secondary"
-                onSuccess={handleLogin}
-                onFailure={handleLogin}
-                cookiePolicy="single_host_origin"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_origin"}
             />
         </>
     );
@@ -63,9 +63,9 @@ Login.propTypes = {
     //errors: PropTypes.object.isRequired,
   };
   
-  const mapStateToProps = (state) => ({
-    auth: state.auth,
-    errors: state.errors,
-  });
-  
-  export default connect(mapStateToProps, { loginUserAction: loginUser })(Login);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { loginUserAction: loginUser })(Login);
