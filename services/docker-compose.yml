@@ -45,7 +45,7 @@ services:
     build:
       context: auth
       dockerfile: Dockerfile
-    depends_on:
+    links:
       - postgresdb
     volumes:
       - ./:/usr/src/app
@@ -61,6 +61,7 @@ services:
       - dashboard
       - recommender
       - database-api
+      - auth
   # auth:
   #   build: 
   #     context: auth

@@ -5,8 +5,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN npm i
+
+# RUN npm run build
 
 EXPOSE 5000
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "start" ]

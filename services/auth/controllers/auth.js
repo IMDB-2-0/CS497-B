@@ -7,24 +7,21 @@ const client = new OAuth2Client()
 const router = express.Router();
 
 router.post('/googlelogin',  (req, res) => {
-    const { token } = req.body;
+    const { tokenId } = req.body;
 
-    console.log("Token arrived at server: " + token);
+    console.log(req.body);
+    // Sconsole.log("Token arrived at server: " + token);
     console.log(process.env.GOOGLE_LOGIN)
     client.verifyIdToken({
-      idToken: token,
+      idToken: tokenId,
       audience: process.env.GOOGLE_LOGIN
     }).then(response => {
-        const {email_verified, name, email} = response.payload;
+        // const {email_verified, name, email} = response.payload;
         print("hi " + response.payload);
-        // if(email_verified) {
-        //     
-        // } else {
-        //    
-        // }
         res.status(200).json({result: token});
     }).catch(err => {
-        res.status(400).json({ message: "something went wrong"});
+        console.log(err);
+        res.status(400).json({ message: err});
     });
 });
     

@@ -3,6 +3,7 @@ import PropTypes from  'prop-types';
 import { connect } from  'react-redux';
 import { GoogleLogin } from  'react-google-login';
 import { Form, Input, Button, message } from  'antd';
+import axios from 'axios';
 
 import { loginUser } from  '../redux/actions/authActions';
 
@@ -12,6 +13,20 @@ const Login = ({auth, loginUserAction, history, errors}) => {
     const onSuccess = async googleData => {
         console.log("Hi! :", googleData);
         console.log(googleData.tokenId);
+        axios.post("/auth/googlelogin", 
+        {tokenId: googleData.tokenId})
+        .then((res) => {
+          // history.push("/")
+          if (res.status === 400) {
+            // eslint-disable-next-line no-console
+            console.log(res.json());
+          }
+    
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        /*
         const res = await fetch("/auth/googlelogin", {
           method: "POST",
           body: JSON.stringify({
@@ -20,9 +35,9 @@ const Login = ({auth, loginUserAction, history, errors}) => {
         headers: {
           "Content-Type": "application/json"
         }
+        
       });
-      const data = await res.json();
-      console.log(data);
+      */
         
     }
 
