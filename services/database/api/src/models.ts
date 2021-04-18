@@ -8,9 +8,6 @@ export const moviesIn = celebrate({
 });
 
 export const userInGET = celebrate({
-    [Segments.BODY]: Joi.object().keys({
-        email: Joi.string().required()
-    }),
     [Segments.QUERY]: Joi.object().keys({
         email: Joi.string().required()
     })
@@ -18,6 +15,8 @@ export const userInGET = celebrate({
 
 export const userInPOST = celebrate({
     [Segments.BODY]: Joi.object().keys({
-        email: Joi.string().required()
+        email: Joi.string().required(),
+        password: Joi.string().required(),
+        name: Joi.string().required()
     })
 });
