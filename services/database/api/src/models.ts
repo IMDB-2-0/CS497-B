@@ -49,3 +49,11 @@ export const userInPOST = celebrate({
         name: Joi.string().required()
     })
 });
+
+export const loginUserPOST = celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        email_verified: Joi.boolean().required(), 
+        name: Joi.string().required(), 
+        email: Joi.string().required()
+    })
+});

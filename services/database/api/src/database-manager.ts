@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { pool } from './database';
 import axios from 'axios';
 import { emailValid } from './utils';
+import { userInGET } from './models';
 
 export const getMovies = async (req: Request, res: Response) => {
     // First 30 limits if unspecified
@@ -108,4 +109,24 @@ export const createUser = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(400).json({ message: error.response });
     }
+}
+
+export const login = async (req: Request, res: Response) => {
+    const {email_verified, name, email} = req.body;
+    if(email_verified) {
+        // Check if the email exists
+        const newResponse = await axios.get('/api/v1/database/user?email=' + email, {
+            validateStatus: (status) => {
+                return (status >= 200 && status < 300) || status === 404;
+            }
+        });
+        
+        // User doesn't exist
+        if (newResponse.status !== 200) {
+            
+        }
+        // const token = jwt.sign({_id: user})
+
+    }
+    return res.status(200).json({ message: "Hi" }); 
 }
