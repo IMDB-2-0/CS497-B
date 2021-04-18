@@ -2,7 +2,7 @@ import axios from 'axios';
 import { SEARCH_MOVIE, FETCH_MOVIES, 
     FETCH_POPULAR_MOVIES, 
     RETRIEVE_NOWPLAYING_MOVIES_SUCCESS, 
-    FETCH_MOVIE, LOADING 
+    FETCH_MOVIE, LOADING
 } from './types';
 import { TMDB_URL, TMDB_API_KEY } from "../../constants/config";
 
@@ -31,4 +31,28 @@ export const retrieveNowPlayingMovies = page => dispatch => {
         });
 };
 
+//Get likes
+export const  fetchLiked = (id) => {
+    return axios
+            .get('http://localhost:5050/api/v1/database/liked?id=' + id)
+            .then(res => {
+                return res.data;
+            })
+            .catch(error => {
+                console.log('Liked', error); 
+            });
 
+    }
+
+//Get dislikes
+export const  fetchDisliked = (id) => {
+    return axios
+            .get('http://localhost:5050/api/v1/database/disliked?id=' + id)
+            .then(res => {
+                return res.data;
+            })
+            .catch(error => {
+                console.log('Disliked', error); 
+            });
+
+    }

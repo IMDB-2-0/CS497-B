@@ -16,6 +16,35 @@ export const userInGET = celebrate({
     })
 });
 
+export const likeInGET = celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        id: Joi.string().required()
+    }),
+    [Segments.QUERY]: Joi.object().keys({
+        id: Joi.string().required()
+    })
+});
+
+export const dislikeInGET = celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        id: Joi.string().required()
+    }),
+    [Segments.QUERY]: Joi.object().keys({
+        id: Joi.string().required()
+    })
+});
+
+export const likeInDELETE = celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        id: Joi.string().required(),
+        like: Joi.string().required()
+    }),
+    [Segments.QUERY]: Joi.object().keys({
+        id: Joi.string().required(),
+        like: Joi.string().required()
+    })
+});
+
 export const userInPOST = celebrate({
     [Segments.BODY]: Joi.object().keys({
         email: Joi.string().required()

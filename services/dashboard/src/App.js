@@ -7,6 +7,8 @@ import { Container } from 'react-bootstrap';
 import './App.css';
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Liked from './pages/Liked';
+import Disliked from './pages/Disliked';
 
 import PrivateRoute from './components/PrivateRoute';
 //import setAuthToken from './utils/setAuthToken';
@@ -49,8 +51,10 @@ function App() {
         <Provider store={store}> 
           <main>
             <Switch>
-              <Route path="/" component={Login} exact/>
-              <Route path="/home" component={Home} />
+              <Route path="/" component={Home} exact/>
+              <Route path="/login" component={Login} />
+              <Route path="/liked" component={Liked} />
+              <Route path="/disliked" component={Disliked} />
             </Switch>
             {/*<Switch>
               <>
