@@ -3,6 +3,7 @@ const {OAuth2Client} = require('google-auth-library');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const client = new OAuth2Client()
+const axios = require('axios');
 
 const router = express.Router();
 
@@ -17,8 +18,8 @@ router.post('/googlelogin',  (req, res) => {
       audience: process.env.GOOGLE_LOGIN
     }).then(response => {
         const {email_verified, name, email} = response.payload;
-        console.log(response);
-        res.status(200).json({result: "success"});
+        
+        // res.status(200).json({result: "success"});
     }).catch(err => {
         console.log(err);
         res.status(400).json({ message: err});

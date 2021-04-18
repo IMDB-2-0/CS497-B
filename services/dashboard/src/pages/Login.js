@@ -26,18 +26,6 @@ const Login = ({auth, loginUserAction, history, errors}) => {
         .catch((err) => {
           console.log(err);
         })
-        /*
-        const res = await fetch("/auth/googlelogin", {
-          method: "POST",
-          body: JSON.stringify({
-          token: googleData.tokenId
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-        
-      });
-      */
         
     }
 

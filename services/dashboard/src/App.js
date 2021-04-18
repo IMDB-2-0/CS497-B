@@ -5,10 +5,11 @@ import { Provider } from 'react-redux';
 
 import { Container } from 'react-bootstrap';
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-// import Signup from './pages/Signup';
-// import PasswordReset from './pages/PasswordReset';
+import './App.css';
+import Login from './pages/Login'
+import Home from './pages/Home'
+import Liked from './pages/Liked';
+import Disliked from './pages/Disliked';
 
 import PrivateRoute from './components/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
@@ -34,33 +35,29 @@ if (localStorage.jwtToken) {
 
 function App() {
   return (
-    <div
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        background: '#eeeeee',
-      }}
-    >
-      <Provider store={store}>
-        <main>
-          <Switch>
-            <Route path="/login" component={Login} />
-            {/*<Route path="/signup" component={Signup} />
-            <Route path="/passwordreset" component={PasswordReset} />*/}
-            <>
-              <Container
-                style={{
-                  marginTop: '25px',
-                  background: '#ffffff',
-                }}
-              >
-                <Route path="/" component={Home} exact />
-              </Container>
-            </>
-          </Switch>
-        </main>
-      </Provider>
-    </div>
+      <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
+        <Provider store={store}> 
+          <main>
+            <Switch>
+              <Route path="/" component={Home} exact/>
+              <Route path="/login" component={Login} />
+              <Route path="/liked" component={Liked} />
+              <Route path="/disliked" component={Disliked} />
+            </Switch>
+            {/*<Switch>
+              <>
+                <Container
+                  style={{
+                    marginTop: '25px',
+                    background: '#ffffff',
+                  }}>
+                  
+                </Container>
+              </>
+            </Switch>*/}
+          </main>
+        </Provider>
+      </div>
   );
 }
 
