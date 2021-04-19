@@ -1,8 +1,13 @@
-FROM python:3.7-alpine
+# FROM python:3.7-alpine (Issue with pandas and alpine)
+FROM python:3.7-stretch
 
 WORKDIR /app
 COPY . .
 
+RUN apt-get update
+RUN apt-get install default-jdk -y
+
+RUN pip3 install pypandoc
 RUN pip3 install pipenv 
 RUN pipenv install --system --deploy
 

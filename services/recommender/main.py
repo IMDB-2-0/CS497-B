@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.recommender import recommender
+from api.routes import routes
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(openapi_url='/api/v1/recommender/openapi.json', docs_url='/api/v1/recommender/docs')
@@ -12,4 +12,4 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-app.include_router(recommender, prefix = '/api/v1/recommender')
+app.include_router(routes, prefix = '/api/v1/recommender')
