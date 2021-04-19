@@ -39,7 +39,7 @@ const Home = ({ movies }) => {
                 {data}
             </Button> */}
             {now_popular.results && now_popular.results.map(info => (
-                    <MovieCard movie={info}/>   
+                    <MovieCard id = {0} movie={info}/>   
             ))}
             
             

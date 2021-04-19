@@ -22,8 +22,8 @@ const Disliked = () => {
 
     return (
         <>
-            {disliked.map((dislike, index) => (
-                <TitleCard title={dislike.title} index = {index.toString()}/>
+            {disliked.map((dislike) => (
+                <TitleCard title={dislike.title} id={0} movieID = {dislike.movieid}/>
             ))}
         </>
     );

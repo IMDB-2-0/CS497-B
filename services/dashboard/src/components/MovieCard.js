@@ -5,9 +5,9 @@ import { TMDB_URL, TMDB_IMG_URL, TMDB_API_KEY } from '../constants/config';
 import styles from './MovieCard.css';
 import { Button } from 'antd';
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
-
-const MovieCard = ({ movie }) => {
-    // console.log(movie)
+import {addLiked} from '../redux/actions/movieActions';
+const MovieCard = ({ movie, id }) => {
+    console.log(movie)
     let movieInfo = (
         <div className="container">
         <div className="row">
@@ -17,7 +17,7 @@ const MovieCard = ({ movie }) => {
           <div className="col-md-8">
             <div className="row">
               <div className="col-md-8"><h2 className="mb-4">{movie.original_title}</h2></div>
-              <div className="col-md-4"><Button icon = {<LikeOutlined style={{ fontSize: '64px'}} /*onClick = addLike*//>}></Button><Button icon = {<DislikeOutlined style={{ fontSize: '64px'}} /*onClick = addLike*//>}></Button></div>
+              <div className="col-md-4"><Button icon = {<LikeOutlined style={{ fontSize: '64px'}} onClick = {()=>{addLiked(id, movie.id, 5, 0)}} />}></Button><Button icon = {<DislikeOutlined style={{ fontSize: '64px'}} onClick = {()=>{addLiked(id, movie.id, 1, 0)}}/>}></Button></div>
             </div>
             
             <ul className="list-group">

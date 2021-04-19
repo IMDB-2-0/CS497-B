@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { createUser, getMovies, getUser, getLiked, getDisliked, deleteLike } from './database-manager';
-import { moviesIn, likeInGET, dislikeInGET, likeInDELETE, userInGET, userInPOST } from './models';
+import { createUser, getMovies, getUser, getLiked, getDisliked, deleteLike, addLike } from './database-manager';
+import { moviesIn, likeInGET, dislikeInGET, likeInDELETE, userInGET, userInPOST, likeInPOST } from './models';
 
 export const router = Router();
 
@@ -25,3 +25,6 @@ router.get('/disliked', dislikeInGET, getDisliked);
 
 //Delete likes
 router.delete('/liked/delete', likeInDELETE, deleteLike);
+
+//Add likes
+router.post('/liked/add', likeInPOST, addLike);

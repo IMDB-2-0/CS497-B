@@ -46,7 +46,7 @@ export const getLiked = async (req: Request, res: Response) => {
 //Gets titles of disliked movies
 export const getDisliked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT movieID, title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
+    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);
@@ -61,15 +61,33 @@ export const deleteLike = async (req: Request, res: Response) => {
     console.log(id);
     console.log(movieID);
     // Checks if user exists in database
-    pool.query('DELETE FROM ratings WHERE userID = $1::int AND movieID = $2::int', [id, movieID], (error, results) => {
+    pool.query('DELETE FROM ratings WHERE userID = $1::int AND movieID = $2::int', [id, movieID], (error) => {
         if (error) return res.status(400).json({ message: error.message });
-        // Everything okay
+         // Everything okay
         else {
-            return res.status(200).json(results.rows);
+            return res.status(200);
         }
     });
 }
 
+export const addLike = async (req: Request, res: Response) => {
+    const id = req.body.id;
+    const movieID = req.body.movieID;
+    const rating = req.body.rating;
+    console.log(id);
+    console.log(movieID);
+    console.log(rating);
+    pool.query('INSERT INTO ratings values ($1::int, $2::int, $3::int, 0)', [id, movieID, rating], (error) => {
+        if (error) {
+            console.log(error.message);
+            return res.status(400).json({ message: error.message });
+        }
+        // Everything okay
+        else {
+            return res.status(200);
+        }
+    });
+}
 // TODO: Update with other profile info (Name, etc.)
 export const createUser = async (req: Request, res: Response) => {
     const email = req.body['email'];

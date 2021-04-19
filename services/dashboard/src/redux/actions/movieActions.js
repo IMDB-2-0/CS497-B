@@ -69,3 +69,20 @@ export const deleteLiked = (id, movieID) => {
             });
             
     }
+
+    //Delete likes
+export const addLiked = (id, movieID, rating) => {
+    return axios
+            .post('http://localhost:5050/api/v1/database/liked/add', {
+                id: id, 
+                movieID: movieID, 
+                rating: rating 
+            }) 
+            .then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.log('Add', error); 
+            });
+            
+    }
