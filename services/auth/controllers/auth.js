@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const router = express.Router();
 
-router.post('/googlelogin',  (req, res) => {
+router.post('/googlelogin',  async(req, res) => {
     const { tokenId } = req.body;
 
     client.verifyIdToken({
@@ -16,16 +16,15 @@ router.post('/googlelogin',  (req, res) => {
     }).then(response => {
       const {email_verified, name, email} = response.payload;
       const new_payload = { email_verified: email_verified, name: name, email: email };
-      return axios.post('http://nginx:5050/api/v1/database/user/login', new_payload)
-                .then((res_info) => {
-
-                  const { token } = res_info.data;
-                  console.log(res_info.data);
-                  console.log(token);
-                  return res_info.data;
-                }).catch((err) => {
-                  console.log(err);
-                })
+      axios.post('http://nginx:5050/api/v1/database/user/login', new_payload)
+        .then((res_info) => {
+          const { token, bearer } = res_info.data;
+          return res.status(200).json({token: token, bearer:bearer});
+        }).catch((err) => {
+          console.log(err);
+          res.status(400).json({message: err});
+        });
+      // return result;
     }).catch(err => {
         console.log(err);
         res.status(400).json({ message: err});
@@ -33,34 +32,3 @@ router.post('/googlelogin',  (req, res) => {
 });
     
 module.exports = router;
-
-  /*
-  console.log(ticket);
-  const { name, email, aud, iss } = ticket.getPayload();
-
-  if (aud === process.env.REACT_APP_GOOGLE_CLIENT_ID && (iss === "accounts.google.com" || iss === "https://accounts.google.com:")){
-    console.log(token);
-    const user = await connectAndRun(db => db.any("SELECT * FROM users where email = $1;", [email]));
-    console.log(user.length);
-    if (user.length !== 0){
-      console.log(user);
-      req.session.userId = token;
-      res.status(201);
-      res.json(user);
-    }
-    else{
-      try{
-        const user = await connectAndRun(db => db.none("INSERT INTO users VALUES (1,2, 3,4, $5);", [email, token, name, null]));
-        console.log(user);
-        req.session.userId = token;
-        res.status(201);
-        res.json(user);
-      }
-      catch(err){
-        throw err;
-      }
-    }  
-  }
-});
-
-*/

@@ -11,17 +11,15 @@ import { loginUser } from  '../redux/actions/authActions';
 const Login = ({auth, loginUserAction, history, errors}) => {
 
     const onSuccess = async googleData => {
-        console.log("hi");
-        axios.post("/api/v1/auth/googlelogin", 
+        await axios.post("/api/v1/auth/googlelogin", 
         {tokenId: googleData.tokenId})
         .then((res) => {
-          // history.push("/")
           if (res.status === 200) {
             // eslint-disable-next-line no-console
             console.log("hello, it worked!")
-            console.log(res);
+            // TODO: Work on setting auth token
+            history.push('/'); 
           }
-    
         })
         .catch((err) => {
           console.log(err);
@@ -35,11 +33,6 @@ const Login = ({auth, loginUserAction, history, errors}) => {
     }
 
     const {REACT_APP_GOOGLE_CLIENT_ID} = process.env;
-
-    
-    // if(auth.isAuthenticated) {
-    //     history.push('/');
-    // }
   
     return (
         <>
