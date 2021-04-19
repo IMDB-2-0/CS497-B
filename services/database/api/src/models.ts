@@ -35,13 +35,9 @@ export const dislikeInGET = celebrate({
 });
 
 export const likeInDELETE = celebrate({
-    [Segments.BODY]: Joi.object().keys({
-        id: Joi.string().required(),
-        like: Joi.string().required()
-    }),
     [Segments.QUERY]: Joi.object().keys({
-        id: Joi.string().required(),
-        like: Joi.string().required()
+        id: Joi.number().required(),
+        movieID: Joi.number().required()
     })
 });
 

@@ -56,3 +56,16 @@ export const  fetchDisliked = (id) => {
             });
 
     }
+
+//Delete likes
+export const deleteLiked = (id, movieID) => {
+    return axios
+            .delete('http://localhost:5050/api/v1/database/liked/delete?id=' + id  + '&movieID=' + movieID)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.log('Disliked', error); 
+            });
+            
+    }

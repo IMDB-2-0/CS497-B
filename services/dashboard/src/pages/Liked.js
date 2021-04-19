@@ -19,11 +19,11 @@ const Liked = () => {
         }
         fetchData();
     }, [liked]);
-
+    
     return (
         <>
-            {liked.map((like, index) => (
-                <TitleCard title={like.title} id = {index.toString()}/>
+            {liked.map((like) => (
+                <TitleCard title={like.title} id={0} movieID = {like.movieid}/>
             ))}
         </>
     );

@@ -34,7 +34,7 @@ export const getUser = async (req: Request, res: Response) => {
 //Gets titles of liked movies
 export const getLiked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 5', [id], (error, results) => {
+    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 5', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);
@@ -46,7 +46,7 @@ export const getLiked = async (req: Request, res: Response) => {
 //Gets titles of disliked movies
 export const getDisliked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
+    pool.query('SELECT movieID, title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);
@@ -56,16 +56,15 @@ export const getDisliked = async (req: Request, res: Response) => {
 }
 
 export const deleteLike = async (req: Request, res: Response) => {
-    const email = req.query['email'];
-    const like = req.query['like']
+    const id = req.query['id'];
+    const movieID = req.query['movieID'];
+    console.log(id);
+    console.log(movieID);
     // Checks if user exists in database
-    pool.query('DELETE FROM users WHERE email = $1::text AND liked = $2::text', [email, like], (error, results) => {
+    pool.query('DELETE FROM ratings WHERE userID = $1::int AND movieID = $2::int', [id, movieID], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
-        // User does not exist
-        if (results.rows.length === 0) {
-            return res.status(404).json({ message: email + ' does not exist.' });
         // Everything okay
-        } else {
+        else {
             return res.status(200).json(results.rows);
         }
     });
