@@ -3,10 +3,10 @@ import { router } from './routes';
 import cors from 'cors';
 import { errors } from 'celebrate';
 const passport = require('passport');
-const { useJwtStrategy } = require('./util/passport/index');
+const { useJwtStrategy } = require('./passport/index');
 const path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+// require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
 const port = 5000
@@ -20,8 +20,8 @@ app.use(errors());
 
 // Passport Middleware
 useJwtStrategy();
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 // Allows routes to be used
