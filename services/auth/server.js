@@ -1,4 +1,29 @@
 const express = require('express');
+const router = require('./routes');
+const cors = require('cors');
+// const errors = require('celebrate');
+
+const app = express();
+const port = process.env.PORT || 5000;
+const host = '0.0.0.0';
+
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+// app.use(errors());
+
+// Allows routes to be used
+app.use('/api/v1/auth', router);
+
+// Listens on specified port and host
+app.listen(port, host, () => {
+    console.log(`App running on http://${host}:${port}`);
+});
+
+
+/*
+const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
@@ -91,7 +116,7 @@ app.post('/auth/login', async (req, res) => {
     }
     else{
       try{
-        const user = await connectAndRun(db => db.none("INSERT INTO users VALUES ($1, $2, $3, $4, $5);", [email, token, name, null]));
+        const user = await connectAndRun(db => db.none("INSERT INTO users VALUES (1,2, 3,4, $5);", [email, token, name, null]));
         console.log(user);
         req.session.userId = token;
         res.status(201);
@@ -103,29 +128,6 @@ app.post('/auth/login', async (req, res) => {
     }  
     
   }
-/*
-req.session.userId = user.id;
-*/  
-/*
-  const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
-    expiresIn: 31556926, // 1 year in seconds  
-  });
-  
-  const { _id, name, email } = user;
-
-  res.json({
-    token,
-    user: { _id, name, email }
-  })
-  
-  */
-
-
-  
-
-
-
-
-
-
 });
+
+*/

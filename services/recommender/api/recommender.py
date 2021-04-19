@@ -1,35 +1,36 @@
-from random import randint
+from pyspark.ml.recommendation import ALSModel
+from pyspark.sql import Row
 
+from api.sparkSession import spark, links, movies
+from api.models import RatingsIn
+import pandas as pd
 from typing import List
-from fastapi import Header, APIRouter
-import httpx
-
-from api.models import RecommenderIn, RecommenderOut
-from api.utils import get_host
-
-recommender = APIRouter()
-
-@recommender.get('/status', status_code = 200)
-async def status():
-    return { 'message': 'Recommender service is active.' }
 
 
-# TODO: Use actual recommendation system / edit endpoint name to be more specific
-@recommender.post('/movie', response_model=RecommenderOut, status_code = 200)
-async def recommend_movie(payload: RecommenderIn = None):
-    payload = payload.dict()
-    host = get_host('database-api')
+def get_alias(predictions, links, movies):
+    r = predictions.alias('r')
+    l = links.alias('l')
+    m = movies.alias('m')
+    return (r, l, m)
 
-    print('- Movie recommendation requested by "' + payload['user'] + '"')
+def join_tables(predictions, links, movies):
+    r, l, m = get_alias(predictions, links, movies)
+    return r.join(l, r.movieid == l.movieid) \
+            .join(m, m.movieid == l.movieid)
 
-    async with httpx.AsyncClient() as client:
-        # TODO: Modify port? (Currently only works with Docker Compose with nginx setup..)
-        response = await client.get('http://' + host + ':5000/api/v1/database/movies')
-        response = response.json()
+async def recommender(user_ratings: RatingsIn):
+    # Loads fitted model
+    model = ALSModel.load('temp-fitted-model')
+    # Converts HTTP response of user ratings to Spark DataFrame
+    data = spark.createDataFrame(Row(**x) for x in user_ratings)
+    # Creates prediction for a user
+    predictions = model.transform(data.select(['userid', 'movieid']))
 
-    # TODO: Update with actual recommendation engine
-    selected_movie = response
-    rand_id = randint(1, 30)
-    selected_movie = list(filter(lambda movie: movie['mid'] == rand_id, selected_movie))
-
-    return { 'movie': selected_movie[0]['title'] }
+    # Joined results based on prediction
+    results = join_tables(predictions, links, movies)
+    # Selects rows we need for response
+    results = results.orderBy('prediction', ascending = False) \
+                     .select(['r.movieid', 'm.title', 'l.imdbid', 'l.tmdbid'])
+    
+    # Returns DataFrame results as a list of objects
+    return results.rdd.map(lambda row: row.asDict()).collect()
