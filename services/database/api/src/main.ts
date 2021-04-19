@@ -6,8 +6,10 @@ const passport = require('passport');
 import { useJwtStrategy }  from './passport/index'; 
 const path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-
+// require('dotenv').config({ path: path.resolve(__dirname, '../', '.env') });
+// console.log(process.env.SECRET);
+// console.log(process.env.PORT);
+// console.log("hi" + path.resolve(__dirname, '../.env'));
 const app = express();
 const port = 5000
 const host = '0.0.0.0';

@@ -120,6 +120,7 @@ export const createUser = async (req: Request, res: Response) => {
 export const googlelogin = async (req: Request, res: Response) => {
     const {email_verified, name, email} = req.body;
     // Check if the email exists
+    console.log("hi");
     let newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
         validateStatus: (status) => {
             return (status >= 200 && status < 300) || status === 404;
@@ -157,10 +158,10 @@ export const googlelogin = async (req: Request, res: Response) => {
             email: newResponse.data.email,
             name: newResponse.data.name,
         }
-        const token = jwt.sign(payload, process.env.SECRET, {
+        const token = jwt.sign(payload, 'secret', {
             expiresIn: 31556926, // 1 year in seconds
         });
-        jwt.verify(token, process.env.SECRET);
+        jwt.verify(token, 'secret');
         return res.status(200).json({
             success: true,
             token: `bearer ${token}`,

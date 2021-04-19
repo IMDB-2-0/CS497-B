@@ -11,6 +11,7 @@ import { loginUser } from  '../redux/actions/authActions';
 const Login = ({auth, loginUserAction, history, errors}) => {
 
     const onSuccess = async googleData => {
+        console.log("hi");
         axios.post("/api/v1/auth/googlelogin", 
         {tokenId: googleData.tokenId})
         .then((res) => {

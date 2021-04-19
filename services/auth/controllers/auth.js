@@ -17,9 +17,12 @@ router.post('/googlelogin',  (req, res) => {
       const {email_verified, name, email} = response.payload;
       const new_payload = { email_verified: email_verified, name: name, email: email };
       return axios.post('http://nginx:5050/api/v1/database/user/login', new_payload)
-                .then((res) => {
-                  console.log("Auth received: " + res);
-                  return res;
+                .then((res_info) => {
+
+                  const { token } = res_info.data;
+                  console.log(res_info.data);
+                  console.log(token);
+                  return res_info.data;
                 }).catch((err) => {
                   console.log(err);
                 })
