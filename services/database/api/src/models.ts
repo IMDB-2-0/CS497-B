@@ -18,19 +18,19 @@ export const userInGET = celebrate({
 
 export const likeInGET = celebrate({
     [Segments.BODY]: Joi.object().keys({
-        id: Joi.string().required()
+        id: Joi.number().required()
     }),
     [Segments.QUERY]: Joi.object().keys({
-        id: Joi.string().required()
+        id: Joi.number().required()
     })
 });
 
 export const dislikeInGET = celebrate({
     [Segments.BODY]: Joi.object().keys({
-        id: Joi.string().required()
+        id: Joi.number().required()
     }),
     [Segments.QUERY]: Joi.object().keys({
-        id: Joi.string().required()
+        id: Joi.number().required()
     })
 });
 

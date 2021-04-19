@@ -14,7 +14,7 @@ const Liked = () => {
     //TODO: replace 0 with user id
     React.useEffect(() => {
         async function fetchData() {
-            const likes = await fetchLiked("0");
+            const likes = await fetchLiked(0);
             setLiked(likes);
         }
         fetchData();

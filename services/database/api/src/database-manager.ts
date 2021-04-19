@@ -34,7 +34,7 @@ export const getUser = async (req: Request, res: Response) => {
 //Gets titles of liked movies
 export const getLiked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT title FROM users JOIN LIKED ON users.id = liked.id JOIN movies on liked.liked = movies.mid WHERE users.id = $1::text', [id], (error, results) => {
+    pool.query('SELECT title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 5', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);
@@ -46,7 +46,7 @@ export const getLiked = async (req: Request, res: Response) => {
 //Gets titles of disliked movies
 export const getDisliked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT title FROM users JOIN disliked ON users.id = disliked.id JOIN movies on disliked.disliked = movies.mid WHERE users.id = $1::text', [id], (error, results) => {
+    pool.query('SELECT title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);

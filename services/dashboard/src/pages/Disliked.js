@@ -14,7 +14,7 @@ const Disliked = () => {
     //TODO: replace 1 with user ID
     React.useEffect(() => {
         async function fetchData() {
-            const dislikes = await fetchDisliked("1");
+            const dislikes = await fetchDisliked(0);
             setdisliked(dislikes);
         }
         fetchData();
