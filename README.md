@@ -1,6 +1,8 @@
 [![Dashboard CI](https://github.com/IMDB-2-0/CS497-B/actions/workflows/node.js.yml/badge.svg)](https://github.com/IMDB-2-0/CS497-B/actions/workflows/node.js.yml)
 # CS497-B
 
+Run the code: docker-compose up --build
+
 Our project is to create a service to recommender systems for
 movies and tv shows based on your personal tastes. Our project
 combines our interests in scalable web systems, data science, 

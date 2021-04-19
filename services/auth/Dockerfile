@@ -1,11 +1,14 @@
+
 FROM node:12-alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN npm i
 
-EXPOSE 8000
+# RUN npm run build
 
-CMD [ "node", "server.js" ]
+EXPOSE 5000
+
+CMD [ "npm", "run", "start" ]

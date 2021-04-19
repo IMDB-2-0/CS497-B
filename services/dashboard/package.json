@@ -13,6 +13,7 @@
     "antd-img-crop": "^3.14.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "core-js": "^3.10.1",
     "docker": "^1.0.0",
     "docker-compose": "^0.23.7",
     "dotenv": "^8.2.0",

@@ -31,6 +31,8 @@ services:
       - ./:/usr/src/app
     ports:
       - "5002:5000"
+    environment: 
+      PYSPARK_SUBMIT_ARGS: --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1,org.postgresql:postgresql:42.2.19 --driver-class-path /app/api/postgresql-42.2.19.jar pyspark-shell
   database-api:
     build:
       context: database/api
@@ -41,6 +43,16 @@ services:
       - ./:/usr/src/app
     ports:
       - "5003:5000"
+  auth:
+    build:
+      context: auth
+      dockerfile: Dockerfile
+    links:
+      - postgresdb
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "5004:5000"
   nginx:
     image: nginx:alpine
     ports:
@@ -51,13 +63,4 @@ services:
       - dashboard
       - recommender
       - database-api
-  # auth:
-  #   build: 
-  #     context: auth
-  #     dockerfile: Dockerfile
-  #   links:
-  #     - postgresdb
-  #   volumes:
-  #     - ./:/usr/src/app
-  #   ports:
-  #     - "8000:8000"
+      - auth

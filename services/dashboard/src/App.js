@@ -1,7 +1,8 @@
 import React from 'react';
-// import jwtDecode from "jwt-decode";
-import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 import { Provider } from 'react-redux';
+
 import { Container } from 'react-bootstrap';
 
 import './App.css';
@@ -11,21 +12,19 @@ import Liked from './pages/Liked';
 import Disliked from './pages/Disliked';
 
 import PrivateRoute from './components/PrivateRoute';
-//import setAuthToken from './utils/setAuthToken';
-//import { milisecondsToSeconds } from './utils/dateTime';
+import setAuthToken from './utils/setAuthToken';
+import { milisecondsToSeconds } from './utils/dateTime';
 
-import store from "./redux/store";
+import store from './redux/store';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 
-/*
-if (localStorage.jwtToken && localStorage.jwtToken !== "undefined") {
-  var retrievedObj = localStorage.getItem('jwtToken');
-  var res = JSON.parse(retrievedObj);
-  // console.log(res)
-  const { access_token } = res.data
-  setAuthToken(access_token);
-  const decoded = jwtDecode(access_token);
-  // console.log(decoded);
+import './styles/App.css';
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  const decoded = jwtDecode(token);
   store.dispatch(setCurrentUser(decoded));
   const currentTime = milisecondsToSeconds(Date.now());
   if (decoded.exp < currentTime) {
@@ -33,19 +32,8 @@ if (localStorage.jwtToken && localStorage.jwtToken !== "undefined") {
     window.location.href = './login';
   }
 }
-*/
 
 function App() {
-  
-  /*
-  let location = useLocation();
-
-  React.useEffect(() => {
-    document.body.classList.add('is-loaded')
-    // childRef.current.init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
-  */
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
@@ -74,7 +62,3 @@ function App() {
 }
 
 export default App;
-
-/*
-<Route path="/login" component={Login} />
-*/
