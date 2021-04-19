@@ -3,7 +3,7 @@ import { router } from './routes';
 import cors from 'cors';
 import { errors } from 'celebrate';
 const passport = require('passport');
-const { useJwtStrategy } = require('./passport/index');
+import { useJwtStrategy }  from './passport/index'; 
 const path = require('path');
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
