@@ -31,6 +31,8 @@ services:
       - ./:/usr/src/app
     ports:
       - "5002:5000"
+    environment: 
+      PYSPARK_SUBMIT_ARGS: --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1,org.postgresql:postgresql:42.2.19 --driver-class-path /app/api/postgresql-42.2.19.jar pyspark-shell
   database-api:
     build:
       context: database/api

@@ -9,6 +9,8 @@ typing = "*"
 pydantic = "*"
 uvicorn = "*"
 httpx = "*"
+pyspark = "*"
+pandas = "*"
 
 [dev-packages]
 
