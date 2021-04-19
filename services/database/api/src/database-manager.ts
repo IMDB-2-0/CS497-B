@@ -24,7 +24,7 @@ export const getUser = async (req: Request, res: Response) => {
     const email = req.query['email'];
 
     // Checks if user exists in database
-    pool.query('SELECT email FROM users WHERE email = $1::text', [email], (error, results) => {
+    pool.query('SELECT email, userID, name FROM users WHERE email = $1::text', [email], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         // User does not exist
         if (results.rows.length === 0) {
@@ -121,7 +121,7 @@ export const googlelogin = async (req: Request, res: Response) => {
     const {email_verified, name, email} = req.body;
     console.log("line 121");
     // Check if the email exists
-    const newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
+    let newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
         validateStatus: (status) => {
             return (status >= 200 && status < 300) || status === 404;
         }
@@ -145,31 +145,29 @@ export const googlelogin = async (req: Request, res: Response) => {
                     .catch((err) => console.log(err));
             });
         });
-
-        const newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
-            validateStatus: (status) => {
-                return (status >= 200 && status < 300) || status === 404;
-            }
-        });
-        // console.log(newResponse);
-        return res.status(200).json({ message: "Hi" }); 
     } 
+
+    newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
+        validateStatus: (status) => {
+            return (status >= 200 && status < 300) || status === 404;
+        }
+    });
     
     if(newResponse.status === 200) {
         //console.log(newResponse);
         // Sign token
-        /*
-        const token = jwt.sign(, process.env.SECRET, {
+        const payload = {
+            email: newResponse.data.email,
+            name: newResponse.data.name,
+        }
+        const token = jwt.sign(payload, process.env.SECRET, {
             expiresIn: 31556926, // 1 year in seconds
         });
         jwt.verify(token, process.env.SECRET);
-        return res.json({
+        return res.status(200).json({
             success: true,
             token: `bearer ${token}`,
         });
-        */
-        // const token = jwt.sign({_id: user})
-        return res.status(200).json({ message: "Hi" }); 
     }
     return res.status(newResponse.status).json({ message: newResponse.statusText }); 
 }
