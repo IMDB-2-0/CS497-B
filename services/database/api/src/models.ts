@@ -7,9 +7,16 @@ export const moviesIn = celebrate({
     })
 });
 
-export const userInGET = celebrate({
+// Modify to work with IDs instead
+export const tempUserInGET = celebrate({
     [Segments.QUERY]: Joi.object().keys({
         email: Joi.string().required()
+    })
+});
+
+export const userInGET = celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        id: Joi.number().required()
     })
 });
 

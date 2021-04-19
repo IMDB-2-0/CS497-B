@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { createUser, getMovies, getUser } from './database-manager';
-import { moviesIn, userInGET, userInPOST } from './models';
+import { createUser, getMovies, getUser, getUserRatings } from './database-manager';
+import { moviesIn, userInGET, tempUserInGET, userInPOST } from './models';
 
 export const router = Router();
 
@@ -12,8 +12,10 @@ router.get('/status', async (req: Request, res: Response): Promise<Response> => 
 router.get('/movies', moviesIn, getMovies);
 
 // Retrieve a user's information
-router.get('/user', userInGET, getUser);
+router.get('/user', tempUserInGET, getUser);
 
 // Create new user
 router.post('/user/create', userInPOST, createUser);
 
+// Get user ratings
+router.get('/user/ratings', userInGET, getUserRatings);

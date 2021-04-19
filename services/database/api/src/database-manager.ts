@@ -68,3 +68,13 @@ export const createUser = async (req: Request, res: Response) => {
         return res.status(400).json({ message: error.response });
     }
 }
+
+// TODO: Edit to work with our application's users
+export const getUserRatings = async (req: Request, res: Response) => {
+    const { id } = req.query;
+
+    pool.query('SELECT * FROM ratings WHERE userID = $1::int', [id], (error, results) => {
+        if (error) return res.status(400).json({ message: error.message });
+        else return res.status(200).json(results.rows);
+    });
+};
