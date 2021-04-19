@@ -17,13 +17,11 @@ router.post('/googlelogin',  (req, res) => {
       idToken: tokenId,
       audience: process.env.GOOGLE_LOGIN
     }).then(response => {
-      console.log(response.payload)
+      // console.log(response.payload)
       const {email_verified, name, email} = response.payload;
       const new_payload = { email_verified: email_verified, name: name, email: email };
-      // axios.post("/api/v1/auth/googlelogin", 
-      // {tokenId: googleData.tokenId})
-      console.log(new_payload);
-      return axios.post('/api/v1/database/user/login', new_payload)
+      // console.log(new_payload);
+      return axios.post('http://nginx:5050/api/v1/database/user/login', new_payload)
                 .then((res) => {
                   return res;
                 }).catch((err) => {
