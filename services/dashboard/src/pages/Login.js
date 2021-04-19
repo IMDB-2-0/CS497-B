@@ -11,14 +11,13 @@ import { loginUser } from  '../redux/actions/authActions';
 const Login = ({auth, loginUserAction, history, errors}) => {
 
     const onSuccess = async googleData => {
-        console.log("Hi! :", googleData);
-        console.log(googleData.tokenId);
         axios.post("/api/v1/auth/googlelogin", 
         {tokenId: googleData.tokenId})
         .then((res) => {
           // history.push("/")
           if (res.status === 200) {
             // eslint-disable-next-line no-console
+            console.log("hello, it worked!")
             console.log(res);
           }
     

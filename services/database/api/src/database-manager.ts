@@ -32,7 +32,7 @@ export const getUser = async (req: Request, res: Response) => {
         // Everything okay
         } else {
             // TODO: Remove password when sending response
-            console.log(results.rows);
+            // console.log(results.rows);
             return res.status(200).json(results.rows);
         }
     });
@@ -119,7 +119,6 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const googlelogin = async (req: Request, res: Response) => {
     const {email_verified, name, email} = req.body;
-    console.log("line 121");
     // Check if the email exists
     let newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
         validateStatus: (status) => {
@@ -134,7 +133,6 @@ export const googlelogin = async (req: Request, res: Response) => {
             length: 20,
             numbers: true
         });
-        console.log("New lines")
         bcrypt.genSalt(10, (error: any, salt:any) => {
             bcrypt.hash(password, salt, (err: any, hash: any) => {
                 if (err) throw err;
@@ -154,7 +152,6 @@ export const googlelogin = async (req: Request, res: Response) => {
     });
     
     if(newResponse.status === 200) {
-        //console.log(newResponse);
         // Sign token
         const payload = {
             email: newResponse.data.email,

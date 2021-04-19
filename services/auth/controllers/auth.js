@@ -10,19 +10,15 @@ const router = express.Router();
 router.post('/googlelogin',  (req, res) => {
     const { tokenId } = req.body;
 
-    // console.log(req.body);
-    // Sconsole.log("Token arrived at server: " + token);
-    // console.log(process.env.GOOGLE_LOGIN)
     client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.GOOGLE_LOGIN
     }).then(response => {
-      // console.log(response.payload)
       const {email_verified, name, email} = response.payload;
       const new_payload = { email_verified: email_verified, name: name, email: email };
-      // console.log(new_payload);
       return axios.post('http://nginx:5050/api/v1/database/user/login', new_payload)
                 .then((res) => {
+                  console.log("Auth received: " + res);
                   return res;
                 }).catch((err) => {
                   console.log(err);
