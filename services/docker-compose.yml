@@ -77,6 +77,14 @@ services:
       ORIENTDB_NODE_NAME: odb2
     depends_on:
       - odb1
+  graph_db:
+    build: 
+      context: graph_db
+      dockerfile: Dockerfile
+    links:
+      - odb1
+    ports:
+      - "5004:3000"
   nginx:
     image: nginx:alpine
     ports:
@@ -84,6 +92,7 @@ services:
     volumes:
       - ./gateway/nginx_config.conf:/etc/nginx/conf.d/default.conf
     depends_on:
+      - graph_db
       - dashboard
       - recommender
       - database-api
