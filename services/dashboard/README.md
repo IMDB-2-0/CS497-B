@@ -1,4 +1,4 @@
-## Dashboard
+# Dashboard
 
 Authors: Timothey Nguyen, Robin Lovell
 Owner: Robin Lovell
