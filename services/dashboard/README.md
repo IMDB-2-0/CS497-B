@@ -12,6 +12,7 @@ The api routes that correspond to the front end are:
 - #### '/liked/delete' (DELETE)
 - #### '/liked/add' (POST) )  
 
+Base url: http://localhost:5050/api/v1/database
 
 ## '/liked', '/disliked' (GET):
 
