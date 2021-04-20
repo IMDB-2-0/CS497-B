@@ -53,6 +53,30 @@ services:
       - ./:/usr/src/app
     ports:
       - "5004:5000"
+  odb1:
+    image: orientdb:latest
+    command: dserver.sh
+    volumes:
+      - ./var/odb1/config:/orientdb/config
+      - ./var/odb1/databases:/orientdb/databases
+    environment:
+      ORIENTDB_ROOT_PASSWORD: root
+      ORIENTDB_NODE_NAME: odb1
+    ports:
+      - 2480:2480
+      - 2424:2424
+
+  odb2:
+    image: orientdb:latest
+    command: dserver.sh
+    volumes:
+      - ./var/odb2/config:/orientdb/config
+      - ./var/odb2/databases:/orientdb/databases
+    environment:
+      ORIENTDB_ROOT_PASSWORD: root
+      ORIENTDB_NODE_NAME: odb2
+    depends_on:
+      - odb1
   nginx:
     image: nginx:alpine
     ports:
