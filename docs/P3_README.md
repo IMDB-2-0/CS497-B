@@ -30,7 +30,7 @@ We are using a tool called [Kompose](https://kompose.io/) to do the migration.
 
 Our current system is more-or-less similar to our previous prototype design with slight changes. Here is our updated and overall architecture:
 
-[Design](https://github.com/IMDB-2-0/CS497-B/blob/master/docs/images/CS497S%20Prototype.png)
+![Design](https://github.com/IMDB-2-0/CS497-B/blob/master/docs/images/CS497S%20Prototype.png)
 
 The biggest changes we incorporated include: converting our API Gateway from Flask to NGINX, refactoring our Flask-based recommender system to 
 FastAPI and utilizing PySpark for data transformation, and implementing a database API that makes queries to the database and 
