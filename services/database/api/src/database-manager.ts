@@ -137,7 +137,6 @@ export const createUser = async (req: Request, res: Response) => {
 export const googlelogin = async (req: Request, res: Response) => {
     const {email_verified, name, email} = req.body;
     // Check if the email exists
-    console.log("hi");
     let newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
         validateStatus: (status) => {
             return (status >= 200 && status < 300) || status === 404;

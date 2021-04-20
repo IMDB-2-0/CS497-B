@@ -50,3 +50,6 @@ Exemplar files:
     - [Docker (by Abhinav Tripathy)](/exemplars/P2/docker)
 
     - [Auth (by Robin Lovell)](/exemplars/P2/auth)
+
+- P3:
+    - [Auth (by Timothy Nguyen)](/exemplars/P3/auth)
