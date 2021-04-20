@@ -9,27 +9,26 @@ The api routes that correspond to the front end are:
 - #### '/disliked' (GET)
 
 Required query parameters:
-The '/liked' and '/disliked' endpoints require a 'userID' query parameter. 
+'userID' 
 
 Action:
-They retrieve the the user's liked or disliked movies from the database.
+Retrieve the the user's liked or disliked movies from the database
 
 Return values:
-They respond with a JSON object containing these data.
+JSON object containing the user's liked or disliked movies
 
 - #### '/liked/delete' (DELETE)
 
 Required query parameters:
-The '/liked/delete' endpoint requires 'userID' and 'movieID' query parameters. 
+'userID' and 'movieID'
 
 Action:
 Deletes the specified like or dislike from the database.
 
-
 - #### '/liked/add' (POST)   
 
 Required body parameters:
-The '/liked/add' endpoint requires 'userID', 'movieID', and 'rating' parameters in the request body. (Dislike corresponds to a rating of 1 and like corresponds to a rating of 5.)
+'userID', 'movieID', and 'rating'. (Dislike corresponds to a rating of 1 and like corresponds to a rating of 5.)
 
 Action:
 The like or dislike is added to the database.
