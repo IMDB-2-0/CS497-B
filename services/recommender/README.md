@@ -20,9 +20,15 @@ You'll be able to access the API via `localhost:5050/api/v1/recommender/`. You m
 
 ## API
 
+**GET Requests**
+
 - **Simple server status**: `/api/v1/recommender/status`
 
 *Retrieves the status of the service and sends a message to the client of the server status.*
+
+- Returns:
+
+  - A JSON file of the server status.
 
 - **Movie recommendations**: `/api/v1/recommender/movie`
 
@@ -30,7 +36,7 @@ You'll be able to access the API via `localhost:5050/api/v1/recommender/`. You m
 
 - Queries:
 
-  - userID: a user's ID in our application
+  - userID (required): a user's ID in our application
 
 - Returns:
 
