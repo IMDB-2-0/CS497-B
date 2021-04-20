@@ -33,7 +33,6 @@ While we have various scalability issues that need to be resolved, our team is i
 Our current system is more-or-less similar to our [previous prototype design](https://github.com/IMDB-2-0/CS497-B/blob/master/docs/P2_README.md#prototype-design) with slight changes and additions. Here is our updated and overall architecture:
 
 ![Design](./images/p3-current-design.png)
-<center>Current System Design (as of Project Milestone 3)</center>
 
 <br>
 
@@ -91,7 +90,6 @@ between approximately 162 thousand users between 1995 to 2019. Here is a preview
 
 <p align="center">
   <img src="./images/ratings.png"/>
-  <center>MovieLens Data Example</center>
 </p>
 
 <br>
@@ -99,7 +97,6 @@ between approximately 162 thousand users between 1995 to 2019. Here is a preview
 Here is our current schema:
 
 ![Schema](./images/p3-schema.png)
-<center>Current Database Schema</center>
 
 <br>
 
