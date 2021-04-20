@@ -48,3 +48,5 @@ Exemplar files:
     - [TMDB API (by Timothy Nguyen)](/exemplars/P2/tmdb-api)
     
     - [Docker (by Abhinav Tripathy)](/exemplars/P2/docker)
+
+    - [Auth (by Robin Lovell)](/exemplars/P2/auth)
