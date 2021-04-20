@@ -5,11 +5,16 @@
 #### Owner: Robin Lovell
 
 
-##### The api routes that correspond to the front end are:
+The api routes that correspond to the front end are:
 
 - #### '/liked' (GET)
 - #### '/disliked' (GET)
+- #### '/liked/delete' (DELETE)
+- #### '/liked/add' (POST) )
 
+
+#### '/liked' (GET)
+#### '/disliked' (GET)
 ##### Required query parameters:
 
 'userID' 
@@ -25,7 +30,7 @@ Retrieve the the user's liked or disliked movies from the database
 JSON object containing the user's liked or disliked movies
 
 
-- #### '/liked/delete' (DELETE)
+#### '/liked/delete' (DELETE)
 
 ##### Required query parameters:
 
@@ -37,7 +42,7 @@ JSON object containing the user's liked or disliked movies
 Deletes the specified like or dislike from the database.
 
 
-- #### '/liked/add' (POST)   
+#### '/liked/add' (POST)   
 
 ##### Required body parameters:
 
