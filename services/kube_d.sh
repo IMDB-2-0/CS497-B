@@ -1,0 +1,1 @@
+sudo kubectl apply -f auth-deployment.yaml -f dashboard-deployment.yaml -f postgresdb-deployment.yaml -f recommender-deployment.yaml -f database-api-deployment.yaml
