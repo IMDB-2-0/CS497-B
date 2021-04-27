@@ -3,29 +3,14 @@ import PropTypes from  'prop-types';
 import { connect } from  'react-redux';
 import { GoogleLogin } from  'react-google-login';
 import { Form, Input, Button, message } from  'antd';
-import axios from 'axios';
 
-import { loginUser } from  '../redux/actions/authActions';
+import { googleLogin } from  '../redux/actions/authActions';
 
 
 const Login = ({auth, loginUserAction, history, errors}) => {
 
     const onSuccess = async googleData => {
-        await axios.post("/api/v1/auth/googlelogin", 
-        {tokenId: googleData.tokenId})
-        .then((res) => {
-          if (res.status === 200) {
-            // eslint-disable-next-line no-console
-            console.log("hello, it worked!")
-            // TODO: Work on setting auth token
-            console.log(res);
-            history.push('/'); 
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        
+        loginUserAction(googleData, history);
     }
 
     const onFailure = googleData => {
@@ -35,6 +20,10 @@ const Login = ({auth, loginUserAction, history, errors}) => {
 
     const {REACT_APP_GOOGLE_CLIENT_ID} = process.env;
   
+    if (auth.isAuthenticated) {
+      history.push('/');
+    }
+
     return (
         <>
             <GoogleLogin
@@ -55,9 +44,9 @@ Login.propTypes = {
       push: PropTypes.func.isRequired,
     }).isRequired,
     // eslint-disable-next-line react/forbid-prop-types
-    //auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     // eslint-disable-next-line react/forbid-prop-types
-    //errors: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
   };
   
 const mapStateToProps = (state) => ({
@@ -65,4 +54,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { loginUserAction: loginUser })(Login);
+export default connect(mapStateToProps, { loginUserAction: googleLogin })(Login);

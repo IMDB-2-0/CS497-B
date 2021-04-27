@@ -39,22 +39,21 @@ function App() {
         <Provider store={store}> 
           <main>
             <Switch>
-              <Route path="/" component={Home} exact/>
               <Route path="/login" component={Login} />
-              <Route path="/liked" component={Liked} />
-              <Route path="/disliked" component={Disliked} />
             </Switch>
-            {/*<Switch>
+            <Switch>
               <>
                 <Container
                   style={{
                     marginTop: '25px',
                     background: '#ffffff',
                   }}>
-                  
+                  <PrivateRoute path="/" component={Home} exact/>
+                  <PrivateRoute path="/liked" component={Liked} />
+                  <PrivateRoute path="/disliked" component={Disliked} />
                 </Container>
               </>
-            </Switch>*/}
+            </Switch>
           </main>
         </Provider>
       </div>
