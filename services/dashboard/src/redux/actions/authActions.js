@@ -39,24 +39,12 @@ export const googleLogin =  (googleData, history) => async(dispatch) => {
     })
     .catch((err) => {
       console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response,
+      });
     })
 };
-
-/*
-await axios.post("/api/v1/auth/googlelogin", 
-        {tokenId: googleData.tokenId})
-        .then((res) => {
-          if (res.status === 200) {
-            // eslint-disable-next-line no-console
-            console.log("hello, it worked!")
-            // TODO: Work on setting auth token
-            history.push('/'); 
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
- */
 
 // Register User
 export const registerUser = (userData, history) => (dispatch) => {
