@@ -18,6 +18,7 @@ const Login = ({auth, loginUserAction, history, errors}) => {
             // eslint-disable-next-line no-console
             console.log("hello, it worked!")
             // TODO: Work on setting auth token
+            console.log(res);
             history.push('/'); 
           }
         })
