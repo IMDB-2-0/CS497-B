@@ -40,8 +40,6 @@ function App() {
           <main>
             <Switch>
               <Route path="/login" component={Login} />
-            </Switch>
-            <Switch>
               <>
                 <Container
                   style={{
