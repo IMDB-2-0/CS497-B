@@ -7,19 +7,30 @@ import { Button } from 'antd';
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import {addLiked} from '../redux/actions/movieActions';
 const MovieCard = ({ movie, id }) => {
-    console.log(movie)
-    let movieInfo = (
-        <div className="container">
+    // console.log(movie)
+    return (
+        <>
+           <div className="container">
         <div className="row">
           <div className="col-md-4 card card-body">
             <img src= {`${TMDB_IMG_URL}/w780/${(movie.backdrop_path || movie.poster_path)}`} className="thumbnail" alt="Poster" />
           </div>
           <div className="col-md-8">
             <div className="row">
-              <div className="col-md-8"><h2 className="mb-4">{movie.original_title}</h2></div>
-              <div className="col-md-4"><Button icon = {<LikeOutlined style={{ fontSize: '64px'}} onClick = {()=>{addLiked(id, movie.id, 5, 0)}} />}></Button><Button icon = {<DislikeOutlined style={{ fontSize: '64px'}} onClick = {()=>{addLiked(id, movie.id, 1, 0)}}/>}></Button></div>
+              <div className="col-md-8">
+                <h2 className="mb-4">{movie.original_title}</h2>
+              </div>
+              <div className="col-md-4">
+                <Button icon = {
+                  <LikeOutlined style={{ fontSize: '64px'}} 
+                  onClick = {()=>{addLiked(id, movie.id, 5, 0)}} />}>
+                </Button>
+                <Button icon = {
+                  <DislikeOutlined style={{ fontSize: '64px'}} 
+                  onClick = {()=>{addLiked(id, movie.id, 1, 0)}}/>}>
+                </Button>
+              </div>
             </div>
-            
             <ul className="list-group">
               <li className="list-group-item">
                 <strong>Released:</strong> {movie.release_date}
@@ -40,13 +51,6 @@ const MovieCard = ({ movie, id }) => {
           </div>
         </div>
       </div>
-    );
-
-    let content = movieInfo;
-
-    return (
-        <>
-           {content}
         </>
     );
 }

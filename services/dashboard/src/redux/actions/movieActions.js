@@ -32,7 +32,7 @@ export const retrieveNowPlayingMovies = page => dispatch => {
 };
 
 //Get likes
-export const  fetchLiked = (id) => {
+export const fetchLiked = (id) => {
     return axios
             .get('http://localhost:5050/api/v1/database/liked?id=' + id)
             .then(res => {

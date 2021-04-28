@@ -15,6 +15,8 @@ import PrivateRoute from './components/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 import { milisecondsToSeconds } from './utils/dateTime';
 
+import NavBar from './components/NavBar';
+
 import store from './redux/store';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 
@@ -37,24 +39,22 @@ function App() {
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
+          <NavBar />
           <main>
             <Switch>
-              <Route path="/" component={Home} exact/>
               <Route path="/login" component={Login} />
-              <Route path="/liked" component={Liked} />
-              <Route path="/disliked" component={Disliked} />
-            </Switch>
-            {/*<Switch>
               <>
                 <Container
                   style={{
                     marginTop: '25px',
                     background: '#ffffff',
                   }}>
-                  
+                  <PrivateRoute path="/" component={Home} exact/>
+                  <PrivateRoute path="/liked" component={Liked} />
+                  <PrivateRoute path="/disliked" component={Disliked} />
                 </Container>
               </>
-            </Switch>*/}
+            </Switch>
           </main>
         </Provider>
       </div>

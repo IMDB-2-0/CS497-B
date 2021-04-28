@@ -17,6 +17,7 @@
     "docker": "^1.0.0",
     "docker-compose": "^0.23.7",
     "dotenv": "^8.2.0",
+    "is-empty": "^1.2.0",
     "jwt-decode": "^3.1.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
