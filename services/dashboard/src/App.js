@@ -15,6 +15,8 @@ import PrivateRoute from './components/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
 import { milisecondsToSeconds } from './utils/dateTime';
 
+import NavBar from './components/NavBar';
+
 import store from './redux/store';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 
@@ -37,6 +39,7 @@ function App() {
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
+          <NavBar />
           <main>
             <Switch>
               <Route path="/login" component={Login} />
