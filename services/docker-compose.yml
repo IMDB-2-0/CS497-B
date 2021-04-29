@@ -11,25 +11,20 @@ services:
       - ./database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
     ports:
       - "34532:5432"
-    restart: unless-stopped
   dashboard:
     build: 
       context: dashboard
       dockerfile: Dockerfile
-    restart: unless-stopped
     links:
       - postgresdb
     ports:
       - "5001:5000"
     environment:
       - IS_DOCKER=Yes
-    labels:
-      kompose.service.type: LoadBalancer
   recommender:
     build: 
       context: recommender
       dockerfile: Dockerfile
-    restart: unless-stopped
     links:
       - postgresdb
     volumes:
@@ -42,7 +37,6 @@ services:
     build:
       context: database/api
       dockerfile: Dockerfile
-    restart: unless-stopped
     depends_on:
       - postgresdb
     volumes:
@@ -53,7 +47,6 @@ services:
     build:
       context: auth
       dockerfile: Dockerfile
-    restart: unless-stopped
     links:
       - postgresdb
     volumes:
