@@ -3,9 +3,13 @@ import MovieCard from '../components/MovieCard';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../redux/store';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchPopularMovies, retrieveNowPlayingMovies} from '../redux/actions/movieActions';
 import { Button } from 'antd';
 import axios from 'axios';
+import './Home.css';
+
+
 
 const Home = ({ movies }) => {
 
@@ -34,16 +38,14 @@ const Home = ({ movies }) => {
     // }
 
     return (
-        <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                {data}
-            </Button> */}
-            {now_popular.results && now_popular.results.map(info => (
-                    <MovieCard id = {0} movie={info}/>   
-            ))}
-            
-            
-        </>
+    
+        <div className='container-fluid movie-app'>
+            <div className='row'>
+                {now_popular.results && now_popular.results.map(info => (
+                        <MovieCard id = {0} movie={info}/>   
+                ))}
+            </div>
+        </div>
     );
 }
 

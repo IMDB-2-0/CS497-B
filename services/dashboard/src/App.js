@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import { Container } from 'react-bootstrap';
 
-import './App.css';
+// import './App.css';
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Liked from './pages/Liked';
@@ -36,6 +36,7 @@ if (localStorage.jwtToken) {
 }
 
 function App() {
+  /*
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
@@ -59,6 +60,19 @@ function App() {
         </Provider>
       </div>
   );
+  */
+ return (
+  <div>
+  <Provider store={store}> 
+    <NavBar />
+    <main>
+      <Switch>
+        <Route path="/" component={Home} />
+      </Switch>
+    </main>
+  </Provider>
+</div>
+ );
 }
 
 export default App;

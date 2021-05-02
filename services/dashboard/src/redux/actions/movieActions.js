@@ -32,8 +32,8 @@ export const retrieveNowPlayingMovies = page => dispatch => {
 };
 
 //Get likes
-export const fetchLiked = (id) => {
-    return axios
+export const fetchLiked = async(id) => {
+    return await axios
             .get('http://localhost:5050/api/v1/database/liked?id=' + id)
             .then(res => {
                 return res.data;

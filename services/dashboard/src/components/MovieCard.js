@@ -6,9 +6,25 @@ import styles from './MovieCard.css';
 import { Button } from 'antd';
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import {addLiked} from '../redux/actions/movieActions';
+import 'bootstrap/dist/css/bootstrap.min.css';
 const MovieCard = ({ movie, id }) => {
     // console.log(movie)
     return (
+      <div className='image-container d-flex justify-content-start m-3'>
+        <img src= {`${TMDB_IMG_URL}/w780/${(movie.backdrop_path || movie.poster_path)}`} className="thumbnail" alt="Poster" />
+      </div>
+
+    );
+}
+/*
+
+    /*<div
+        onClick={() => props.handleFavouritesClick(movie)}
+        className='overlay d-flex align-items-center justify-content-center'
+      >
+      </div>
+      return (
+      
         <>
            <div className="container">
         <div className="row">
@@ -53,7 +69,7 @@ const MovieCard = ({ movie, id }) => {
       </div>
         </>
     );
-}
+    */
 
   
 export default MovieCard;
