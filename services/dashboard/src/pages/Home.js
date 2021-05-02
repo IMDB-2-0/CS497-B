@@ -10,6 +10,7 @@ import './Home.css';
 
 import MovieCard from '../components/MovieCard'; 
 import MovieListHeading from '../components/MovieListHeading';
+import MovieSubListHeading from '../components/MoveSubListHeader';
 import SearchBox from '../components/SearchBox';
 import AddFavourites from '../components/AddFavourites';
 import RemoveFavourites from '../components/RemoveFavourites';
@@ -36,24 +37,16 @@ const Home = ({ movies }) => {
     
         <div className='container-fluid movie-app'>
             <div className='row d-flex align-items-center mt-4 mb-4'>
-				<MovieListHeading heading='Movies' />
+				<MovieListHeading heading='' />
 				<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
 			</div>
-            <div className='row d-flex align-items-center mt-4 mb-4'>
-                <div className='col'>
-                    <h3>{"Popular Movies"}</h3>
-                </div>
-			</div>
+            <MovieSubListHeading heading="Popular Movies" />
             <div className='row'>
                 {now_popular.results && now_popular.results.map(info => (
                         <MovieCard id = {0} movie={info}/>   
                 ))}
             </div>
-            <div className='row d-flex align-items-center mt-4 mb-4'>
-                <div className='col'>
-                    <h3>{"Movies Now Playing"}</h3>
-                </div>
-			</div>
+            <MovieSubListHeading heading="Movies Now Playing" />
             <div className='row'>
                 {now_playing.results && now_playing.results.map(info => (
                         <MovieCard id = {0} movie={info}/>   
