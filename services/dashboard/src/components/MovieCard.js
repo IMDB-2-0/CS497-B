@@ -10,10 +10,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const MovieCard = ({ movie, id }) => {
     // console.log(movie)
     return (
-      <div className='image-container d-flex justify-content-start m-3'>
-        <img src= {`${TMDB_IMG_URL}/w780/${(movie.backdrop_path || movie.poster_path)}`} className="thumbnail" alt="Poster" />
+      <div className="container">
+        <div className='image-container d-flex justify-content-start m-3'>
+          <img src= {`${TMDB_IMG_URL}/w780/${(movie.backdrop_path || movie.poster_path)}`} className="thumbnail" alt="Poster" />
+        </div>
+        <div className="row">
+          <div className="col-md-8">
+            <h2 className="mb-4">{movie.original_title}</h2>
+          </div>
+        </div>
       </div>
-
     );
 }
 /*

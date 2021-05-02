@@ -1,5 +1,4 @@
 import React from 'react';
-import MovieCard from '../components/MovieCard'; 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../redux/store';
@@ -9,11 +8,18 @@ import { Button } from 'antd';
 import axios from 'axios';
 import './Home.css';
 
+import MovieCard from '../components/MovieCard'; 
+import MovieListHeading from '../components/MovieListHeading';
+import SearchBox from '../components/SearchBox';
+import AddFavourites from '../components/AddFavourites';
+import RemoveFavourites from '../components/RemoveFavourites';
 
 
 const Home = ({ movies }) => {
 
     const [page, setPage] = React.useState(1)
+    const [favourites, setFavourites] = React.useState([]);
+	const [searchValue, setSearchValue] = React.useState('');
     // const [data, setData] = React.useState("Press me!");
 
     React.useEffect(() => {
@@ -25,23 +31,31 @@ const Home = ({ movies }) => {
 
 //     // TODO: Edit and make work with nginx (problem with CORS in nginx config)
 //     const link = 'http://localhost:5002/api/v1/recommender/status'
-    
-    // const handleShow = async() => {
-    //     await axios
-    //         .get(link)
-    //         .then(res => {
-    //             // console.log(res);
-    //             setData(res.data.message);
-    //         }).catch(err => {
-    //             console.log(err);
-    //         });
-    // }
 
     return (
     
         <div className='container-fluid movie-app'>
+            <div className='row d-flex align-items-center mt-4 mb-4'>
+				<MovieListHeading heading='Movies' />
+				<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+			</div>
+            <div className='row d-flex align-items-center mt-4 mb-4'>
+                <div className='col'>
+                    <h3>{"Popular Movies"}</h3>
+                </div>
+			</div>
             <div className='row'>
                 {now_popular.results && now_popular.results.map(info => (
+                        <MovieCard id = {0} movie={info}/>   
+                ))}
+            </div>
+            <div className='row d-flex align-items-center mt-4 mb-4'>
+                <div className='col'>
+                    <h3>{"Movies Now Playing"}</h3>
+                </div>
+			</div>
+            <div className='row'>
+                {now_playing.results && now_playing.results.map(info => (
                         <MovieCard id = {0} movie={info}/>   
                 ))}
             </div>
