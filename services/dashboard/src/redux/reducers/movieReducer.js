@@ -4,8 +4,8 @@ import {
     FETCH_MOVIE,
     LOADING,
     RETRIEVE_NOWPLAYING_MOVIES_SUCCESS,
-    FETCH_POPULAR_MOVIES
-
+    FETCH_POPULAR_MOVIES,
+    FETCH_SEARCH_MOVIE
 } from '../actions/types';
 
 
@@ -15,9 +15,11 @@ const initialState = {
     loading: false,
     now_playing: [],
     now_popular: [],
+    search_movies_list: [],
 };
   
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function(state = initialState, action) {
     switch (action.type) {
         case SEARCH_MOVIE:
@@ -54,6 +56,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: true
+            };
+        case FETCH_SEARCH_MOVIE:
+            return {
+                ...state,
+                search_movies_list: action.payload,
+                loading: false
             };
         default:
             return state;

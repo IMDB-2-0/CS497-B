@@ -58,41 +58,41 @@ services:
       - ./:/usr/src/app
     ports:
       - "5004:5000"
-  odb1:
-    image: orientdb:latest
-    command: dserver.sh
-    restart: unless-stopped
-    volumes:
-      - ./var/odb1/config:/orientdb/config
-      - ./var/odb1/databases:/orientdb/databases
-    environment:
-      ORIENTDB_ROOT_PASSWORD: root
-      ORIENTDB_NODE_NAME: odb1
-    ports:
-      - 2480:2480
-      - 2424:2424
+  # odb1:
+  #   image: orientdb:latest
+  #   command: dserver.sh
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./var/odb1/config:/orientdb/config
+  #     - ./var/odb1/databases:/orientdb/databases
+  #   environment:
+  #     ORIENTDB_ROOT_PASSWORD: root
+  #     ORIENTDB_NODE_NAME: odb1
+  #   ports:
+  #     - 2480:2480
+  #     - 2424:2424
 
-  odb2:
-    image: orientdb:latest
-    command: dserver.sh
-    restart: unless-stopped
-    volumes:
-      - ./var/odb2/config:/orientdb/config
-      - ./var/odb2/databases:/orientdb/databases
-    environment:
-      ORIENTDB_ROOT_PASSWORD: root
-      ORIENTDB_NODE_NAME: odb2
-    depends_on:
-      - odb1
-  graph_db:
-    build: 
-      context: graph_db
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    links:
-      - odb1
-    ports:
-      - "5005:3000"
+  # odb2:
+  #   image: orientdb:latest
+  #   command: dserver.sh
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./var/odb2/config:/orientdb/config
+  #     - ./var/odb2/databases:/orientdb/databases
+  #   environment:
+  #     ORIENTDB_ROOT_PASSWORD: root
+  #     ORIENTDB_NODE_NAME: odb2
+  #   depends_on:
+  #     - odb1
+  # graph_db:
+  #   build: 
+  #     context: graph_db
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   links:
+  #     - odb1
+  #   ports:
+  #     - "5005:3000"
   nginx:
     image: nginx:alpine
     ports:
@@ -101,7 +101,7 @@ services:
       - ./gateway/nginx_config.conf:/etc/nginx/conf.d/default.conf
     restart: unless-stopped
     depends_on:
-      - graph_db
+      # - graph_db
       - dashboard
       - recommender
       - database-api

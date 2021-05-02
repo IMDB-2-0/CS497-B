@@ -2,9 +2,20 @@ import axios from 'axios';
 import { SEARCH_MOVIE, FETCH_MOVIES, 
     FETCH_POPULAR_MOVIES, 
     RETRIEVE_NOWPLAYING_MOVIES_SUCCESS, 
-    FETCH_MOVIE, LOADING
+    FETCH_MOVIE, LOADING,
+    FETCH_SEARCH_MOVIE
 } from './types';
 import { TMDB_URL, TMDB_API_KEY } from "../../constants/config";
+
+export const getMovieRequest = (searchValue) => dispatch => {
+    return axios.get(`${TMDB_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${searchValue}`)
+        .then(response =>
+            dispatch({
+                type: FETCH_SEARCH_MOVIE,
+                payload: response.data
+            })
+        ).catch(err => console.log(err));
+}
 
 export const fetchPopularMovies = page => dispatch => {
     return axios
@@ -45,7 +56,7 @@ export const fetchLiked = async(id) => {
     }
 
 //Get dislikes
-export const  fetchDisliked = (id) => {
+export const fetchDisliked = (id) => {
     return axios
             .get('http://localhost:5050/api/v1/database/disliked?id=' + id)
             .then(res => {

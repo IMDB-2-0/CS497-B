@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import Liked from './pages/Liked';
 import Disliked from './pages/Disliked';
+import SearchMovie from './pages/SearchMoviePage';
 
 import PrivateRoute from './components/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
@@ -21,6 +22,7 @@ import store from './redux/store';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 
 import './styles/App.css';
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -35,8 +37,9 @@ if (localStorage.jwtToken) {
   }
 }
 
+
 function App() {
-  /*
+  
   return (
       <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
         <Provider store={store}> 
@@ -50,9 +53,10 @@ function App() {
                     marginTop: '25px',
                     background: '#ffffff',
                   }}>
-                  <PrivateRoute path="/" component={Home} exact/>
+                  <PrivateRoute exact path="/" component={Home}/>
                   <PrivateRoute path="/liked" component={Liked} />
                   <PrivateRoute path="/disliked" component={Disliked} />
+                  <Route path="/searchMovie" component={SearchMovie} />
                 </Container>
               </>
             </Switch>
@@ -60,19 +64,24 @@ function App() {
         </Provider>
       </div>
   );
-  */
+
+/* 
  return (
   <div>
   <Provider store={store}> 
     <NavBar />
     <main>
       <Switch>
-        <Route path="/" component={Home} />
-      </Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/liked" component={Liked} />
+        <Route path="/disliked" component={Disliked} />
+        <Route path="/searchMovie" component={SearchMovie} />
+        </Switch>
     </main>
   </Provider>
 </div>
  );
+ */
 }
 
 export default App;

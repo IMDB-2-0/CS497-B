@@ -5,7 +5,6 @@ import store from '../redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchPopularMovies, retrieveNowPlayingMovies} from '../redux/actions/movieActions';
 import { Button } from 'antd';
-import axios from 'axios';
 import './Home.css';
 
 import MovieCard from '../components/MovieCard'; 
@@ -16,11 +15,10 @@ import AddFavourites from '../components/AddFavourites';
 import RemoveFavourites from '../components/RemoveFavourites';
 
 
-const Home = ({ movies }) => {
+const Home = ({ auth, movies }) => {
 
     const [page, setPage] = React.useState(1)
     const [favourites, setFavourites] = React.useState([]);
-	const [searchValue, setSearchValue] = React.useState('');
     // const [data, setData] = React.useState("Press me!");
 
     React.useEffect(() => {
@@ -29,27 +27,25 @@ const Home = ({ movies }) => {
     }, [page])
 
     const { now_playing, now_popular } = movies;
+    console.log(movies);
 
+    // const { id } = auth;
 //     // TODO: Edit and make work with nginx (problem with CORS in nginx config)
 //     const link = 'http://localhost:5002/api/v1/recommender/status'
 
     return (
     
         <div className='container-fluid movie-app'>
-            <div className='row d-flex align-items-center mt-4 mb-4'>
-				<MovieListHeading heading='' />
-				<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-			</div>
             <MovieSubListHeading heading="Popular Movies" />
             <div className='row'>
                 {now_popular.results && now_popular.results.map(info => (
-                        <MovieCard id = {0} movie={info}/>   
+                        <MovieCard movie={info} />   
                 ))}
             </div>
             <MovieSubListHeading heading="Movies Now Playing" />
             <div className='row'>
                 {now_playing.results && now_playing.results.map(info => (
-                        <MovieCard id = {0} movie={info}/>   
+                        <MovieCard movie={info}/>   
                 ))}
             </div>
         </div>
@@ -57,10 +53,13 @@ const Home = ({ movies }) => {
 }
 
 Home.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    auth: PropTypes.object.isRequired,
     movies: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     movies: state.movies
 });
 

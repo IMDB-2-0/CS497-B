@@ -18,6 +18,15 @@ function CustomNavbar({ auth, logoutUser }) {
         <Nav.Link href="/" active={route === ''}>
           Home
         </Nav.Link>
+        <Nav.Link href="/liked" active={route === 'liked'}>
+          Favorites
+        </Nav.Link>
+        <Nav.Link href="/disliked" active={route === 'disliked'}>
+          Disliked
+        </Nav.Link>
+        <Nav.Link href="/searchMovie" active={route === 'searchMovie'}>
+          Search Movie
+        </Nav.Link>
         <Nav.Link onClick={logout}>
           <Button shape="round">Log out</Button>
         </Nav.Link>{' '}
@@ -26,7 +35,7 @@ function CustomNavbar({ auth, logoutUser }) {
   
     const loggedOutNav = (route) => (
       <>
-        <Nav.Link href="/login" active={route === 'login'}>
+        <Nav.Link href="/" active={route === 'login'}>
           Login
         </Nav.Link>
       </>
