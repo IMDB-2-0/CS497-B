@@ -27,12 +27,13 @@ const Home = ({ auth, movies }) => {
     }, [page])
 
     const { now_playing, now_popular } = movies;
-    console.log(movies);
+    // console.log(movies);
+    // Use the id everywhere
+    const { id } = auth.user;
 
-    // const { id } = auth;
-//     // TODO: Edit and make work with nginx (problem with CORS in nginx config)
-//     const link = 'http://localhost:5002/api/v1/recommender/status'
-
+    // TODO: Edit and make work with nginx (problem with CORS in nginx config)
+    // const link = 'http://localhost:5002/api/v1/recommender/status'
+    // console.log(auth);
     return (
     
         <div className='container-fluid movie-app'>
