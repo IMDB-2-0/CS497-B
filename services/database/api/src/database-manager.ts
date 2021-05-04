@@ -38,10 +38,11 @@ export const getUser = async (req: Request, res: Response) => {
     });
 }
 
+
 //Gets titles of liked movies
 export const getLiked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 5', [id], (error, results) => {
+    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);
@@ -53,7 +54,7 @@ export const getLiked = async (req: Request, res: Response) => {
 //Gets titles of disliked movies
 export const getDisliked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
+    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 0', [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);
@@ -78,21 +79,40 @@ export const deleteLike = async (req: Request, res: Response) => {
 }
 
 export const addLike = async (req: Request, res: Response) => {
-    const id = req.body.id;
-    const movieID = req.body.movieID;
-    const rating = req.body.rating;
-    console.log(id);
-    console.log(movieID);
-    console.log(rating);
-    pool.query('INSERT INTO ratings values ($1::int, $2::int, $3::int, 0)', [id, movieID, rating], (error) => {
-        if (error) {
-            console.log(error.message);
-            return res.status(400).json({ message: error.message });
+    const { userID, movieID, movieTitle, movieGenre, rating } = req.body;
+
+    pool.query('SELECT movieid FROM movies WHERE movieid = $1::int', [movieID], (error, results) => {
+        if (error) return res.status(400).json({ message: error.message });
+        // Movie does not exist
+        if (results.rows.length === 0) {
+            // Add movie to database
+            const insertNewMovie = 'INSERT INTO movies VALUES ($1::int, $2::text, $3::text[])'
+
+            pool.query(insertNewMovie, [movieID, movieTitle, movieGenre], (error) => {
+                if (error) return res.status(400).json({ message: error.message });
+            });
         }
-        // Everything okay
-        else {
-            return res.status(200);
-        }
+
+        // Checks if user has rated this movie already
+        pool.query('SELECT * FROM ratings WHERE userid = $1::int AND movieid = $2::int', [userID, movieID], (error, results) => {
+            if (error) return res.status(400).json({ message: error.message });
+            // User has not rated this movie
+            if (results.rows.length === 0) {
+                // Insert rating
+                pool.query('INSERT INTO ratings values ($1::int, $2::int, $3::int)', [userID, movieID, rating], (error) => {
+                    if (error) return res.status(400).json({ message: error.message });
+                    else return res.status(200).json({ success: true, message: movieTitle + ' rated successfully.'});
+                });
+            // User has rated this movie already
+            } else {
+                // Update rating 
+                const updateQuery = 'UPDATE ratings SET rating = $1::int WHERE userid = $2::int AND movieid = $3::int';
+                pool.query(updateQuery, [rating, userID, movieID], (error) => {
+                    if (error) return res.status(400).json({ message: error.message });
+                    else return res.status(200).json({ success: true, message: movieTitle + ' rated successfully.'});
+                });
+            }
+        });
     });
 }
 // TODO: Update with other profile info (Name, etc.)
@@ -167,7 +187,7 @@ export const googlelogin = async (req: Request, res: Response) => {
             return (status >= 200 && status < 300) || status === 404;
         }
     });
-    
+
     // console.log(newResponse);
     // console.log(newResponse.data);
     // console.log(newResponse.data[0].userid);
@@ -184,6 +204,7 @@ export const googlelogin = async (req: Request, res: Response) => {
         jwt.verify(token, 'secret');
         return res.status(200).json({
             success: true,
+            id: payload.id,
             token: `bearer ${token}`
         });
     }

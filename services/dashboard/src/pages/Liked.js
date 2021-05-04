@@ -14,7 +14,7 @@ const Liked = () => {
     //TODO: replace 0 with user id
     React.useEffect(() => {
         async function fetchData() {
-            const likes = await fetchLiked(0);
+            const likes = await fetchLiked(localStorage.getItem('id'));
             setLiked(likes);
         }
         fetchData();
@@ -23,7 +23,7 @@ const Liked = () => {
     return (
         <>
             {liked.map((like) => (
-                <TitleCard title={like.title} id={0} movieID = {like.movieid}/>
+                <TitleCard title={like.title} id={localStorage.getItem('id')} movieID = {like.movieid}/>
             ))}
         </>
     );

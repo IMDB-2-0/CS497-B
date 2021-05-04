@@ -47,8 +47,10 @@ export const likeInDELETE = celebrate({
 
 export const likeInPOST = celebrate({
     [Segments.BODY]: Joi.object().keys({
-        id: Joi.number().required(),
+        userID: Joi.number().required(),
         movieID: Joi.number().required(),
+        movieTitle: Joi.string().required(),
+        movieGenre: Joi.array().items(Joi.string()),
         rating: Joi.number().required()
     })
 });
