@@ -74,7 +74,7 @@ export const deleteLiked = (id, movieID) => {
     return axios
             .delete('http://localhost:5050/api/v1/database/liked/delete?id=' + id  + '&movieID=' + movieID)
             .then(res => {
-                console.log(res);
+                message.success(res.data.message);
             })
             .catch(error => {
                 console.log('Disliked', error); 

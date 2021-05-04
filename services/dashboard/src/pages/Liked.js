@@ -11,7 +11,6 @@ const Liked = () => {
     //TODO: Get user from local storage
     //const [user, setUser] = React.useState([]);
 
-    //TODO: replace 0 with user id
     React.useEffect(() => {
         async function fetchData() {
             const likes = await fetchLiked(localStorage.getItem('id'));
