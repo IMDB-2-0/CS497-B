@@ -22,7 +22,6 @@ export const googleLogin =  (googleData, history) => async(dispatch) => {
       if (res.status === 400) {
         console.log(res.json());
       }
-
       const { token } = res.data;
       // Set token to localStorage
       localStorage.setItem('jwtToken', token);
