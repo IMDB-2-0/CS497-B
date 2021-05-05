@@ -43,7 +43,14 @@ export const getUser = async (req: Request, res: Response) => {
 //Gets titles of liked movies
 export const getLiked = async (req: Request, res: Response) => {
     const id = req.query['id'];
-    pool.query('SELECT movies.movieID, movies.title FROM movies JOIN ratings ON ratings.movieID = movies.movieID WHERE ratings.userID = $1::int AND ratings.rating = 1', [id], (error, results) => {
+    const query = 'SELECT m.movieID, m.title, l.tmdbid ' +
+                'FROM movies m, ratings r, links l ' +
+                'WHERE m.movieID = r.movieID ' +
+                'AND m.movieID = l.movieID ' +
+                'AND r.userID = $1::int ' +
+                'AND r.rating = 1'; 
+
+    pool.query(query, [id], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         else {
             return res.status(200).json(results.rows);

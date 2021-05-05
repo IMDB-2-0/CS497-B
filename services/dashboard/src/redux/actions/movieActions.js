@@ -3,7 +3,8 @@ import { SEARCH_MOVIE, FETCH_MOVIES,
     FETCH_POPULAR_MOVIES, 
     RETRIEVE_NOWPLAYING_MOVIES_SUCCESS, 
     FETCH_MOVIE, LOADING,
-    FETCH_SEARCH_MOVIE
+    FETCH_SEARCH_MOVIE,
+    FETCH_RECOMMENDATION_TMDB
 } from './types';
 import { message } from 'antd';
 import { TMDB_URL, TMDB_API_KEY } from "../../constants/config";
@@ -122,3 +123,17 @@ export const addLiked = (userID, movie, rating) => {
             message.error('An error occurred. Please try again.');
         });
 }
+
+// Recommendations
+
+// from TMDB
+export const retrieveRecommendationsTMDB = async (movieID) => {
+    return axios
+        .get(`${TMDB_URL}/movie/${movieID}/recommendations?api_key=${TMDB_API_KEY}`)
+        .then(res => res.data)
+        .catch(error => {
+            message.error('An error occured.'); 
+        });
+};
+
+// from recommender system
