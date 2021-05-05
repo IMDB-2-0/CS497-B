@@ -1,4 +1,7 @@
-import React from 'react'
+import React from 'react';
+import { Space, Button } from 'antd';
+import {addLiked} from '../redux/actions/movieActions';
+import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 
 function MovieRow({key, movie}) {
   function viewMovie() {
@@ -14,10 +17,28 @@ function MovieRow({key, movie}) {
         <td>
           <img alt="poster" width="120" src={movie.poster_src}/>
         </td>
-        <td>
+        <td className="container">
           <h3>{movie.title}</h3>
           <p>{movie.overview}</p>
-          <input type="button" onClick={viewMovie} value="View"/>
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-10 mt-2">
+                <input type="button" onClick={viewMovie} value="View"/>
+              </div>
+              <div class="col-auto">
+              <Space size={'large'}>
+                <Button icon = {
+                  <LikeOutlined style={{ fontSize: '32px', color: '#3bcfd4'}} 
+                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 1)}} />}>
+                </Button>
+                <Button icon = {
+                  <DislikeOutlined style={{ fontSize: '32px', color: '#ff0000'}} 
+                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 0)}}/>}>
+                </Button>
+              </Space>
+              </div>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

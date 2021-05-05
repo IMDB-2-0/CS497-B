@@ -33,7 +33,7 @@ const MovieCard = ({ movie }) => {
                 <strong>Rated:</strong> {movie.vote_average}
               </li>
             </ul>
-            <div className="col-md-4">
+            <div className="col-md-4 mt-2">
               <Space size={'large'}>
                 <Button icon = {
                   <LikeOutlined style={{ fontSize: '32px', color: '#3bcfd4'}} 
