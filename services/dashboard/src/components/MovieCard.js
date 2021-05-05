@@ -37,11 +37,11 @@ const MovieCard = ({ movie }) => {
               <Space size={'large'}>
                 <Button icon = {
                   <LikeOutlined style={{ fontSize: '32px', color: '#3bcfd4'}} 
-                  onClick = {()=>{addLiked(movie.id, movie.id, 5, 0)}} />}>
+                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 1)}} />}>
                 </Button>
                 <Button icon = {
                   <DislikeOutlined style={{ fontSize: '32px', color: '#ff0000'}} 
-                  onClick = {()=>{addLiked(movie.id, movie.id, 1, 0)}}/>}>
+                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 0)}}/>}>
                 </Button>
               </Space>
             </div>

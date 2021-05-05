@@ -27,7 +27,7 @@ const Login = ({auth, loginUserAction, history, errors}) => {
     }
 
     return (
-      <div
+      <div class="text-center"
         style={{
           justifyContent: 'center',
           padding: '25px',
