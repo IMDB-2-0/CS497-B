@@ -66,14 +66,13 @@ export const getDisliked = async (req: Request, res: Response) => {
 export const deleteLike = async (req: Request, res: Response) => {
     const id = req.query['id'];
     const movieID = req.query['movieID'];
-    console.log(id);
-    console.log(movieID);
+
     // Checks if user exists in database
     pool.query('DELETE FROM ratings WHERE userID = $1::int AND movieID = $2::int', [id, movieID], (error) => {
         if (error) return res.status(400).json({ message: error.message });
          // Everything okay
         else {
-            return res.status(200);
+            return res.status(200).json({ message: 'Movie rating deleted.' });
         }
     });
 }
@@ -156,6 +155,8 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const googlelogin = async (req: Request, res: Response) => {
     const {email_verified, name, email} = req.body;
+    let register = false;
+
     // Check if the email exists
     let newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
         validateStatus: (status) => {
@@ -165,33 +166,26 @@ export const googlelogin = async (req: Request, res: Response) => {
     
     // User doesn't exist
     if (newResponse.status === 404) {
+        register = true;
         let generator = require('generate-password');
         let password:String = generator.generate({
             length: 20,
             numbers: true
         });
-        bcrypt.genSalt(10, (error: any, salt:any) => {
-            bcrypt.hash(password, salt, (err: any, hash: any) => {
+
+        await bcrypt.genSalt(10, (error: any, salt:any) => {
+            bcrypt.hash(password, salt, async (err: any, hash: any) => {
                 if (err) throw err;
                 password = hash;
                 const new_payload = {email: email, password: password, name: name}
                 axios.post('http://nginx:5050/api/v1/database/user/create', new_payload)
-                    .then((user) => res.json(user))
-                    .catch((err) => console.log(err));
+                    .then(res => console.log('New user created: ' + email))
+                    .catch(error => console.log(error));
             });
         });
-    } 
 
-    newResponse = await axios.get('http://nginx:5050/api/v1/database/user?email=' + email, {
-        validateStatus: (status) => {
-            return (status >= 200 && status < 300) || status === 404;
-        }
-    });
-
-    // console.log(newResponse);
-    // console.log(newResponse.data);
-    // console.log(newResponse.data[0].userid);
-    if(newResponse.status === 200) {
+        return res.status(201).json({ type: 'register', message: '"' + email + '" sucessfully registered. You may login now.'})
+    } else if (newResponse.status === 200) { 
         // Sign token
         const payload = {
             email: newResponse.data[0].email,
@@ -203,12 +197,14 @@ export const googlelogin = async (req: Request, res: Response) => {
         });
         jwt.verify(token, 'secret');
         return res.status(200).json({
-            success: true,
+            type: 'login',
+            message: 'Login Successful',
             id: payload.id,
             token: `bearer ${token}`
         });
+    } else {
+        res.status(newResponse.status).json({type: 'error', message: newResponse.data.message});  
     }
-    return res.status(newResponse.status).json({ message: newResponse.statusText }); 
 }
 
 // TODO: Edit to work with our application's users
