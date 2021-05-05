@@ -1,5 +1,5 @@
 CREATE TABLE movies(
-    movieID INTEGER PRIMARY KEY, 
+    movieID SERIAL PRIMARY KEY, 
     title VARCHAR, 
     genresTemp VARCHAR
 );
@@ -13,7 +13,7 @@ CREATE TABLE users(
 );
 
 CREATE TABLE links(
-    movieID INTEGER PRIMARY KEY,
+    movieID SERIAL PRIMARY KEY,
     imdbID INTEGER,
     tmdbID INTEGER,
     FOREIGN KEY (movieID)
@@ -39,8 +39,14 @@ UPDATE movies
 SET genres = string_to_array(genresTemp, '|');
 ALTER TABLE movies DROP COLUMN genresTemp;
 
+-- Increment new IDs for new movies
+ALTER SEQUENCE movies_movieid_seq RESTART WITH 209172;
+
 -- Have user ID's start at 170000 (above training/test data)
 ALTER SEQUENCE users_userid_seq RESTART WITH 170000;
 
 -- Links
 \COPY links(movieID, imdbID, tmdbID) FROM '/var/lib/postgresql/data/ml-25m/links.csv' CSV HEADER;
+
+-- Increment new IDs for new movies
+ALTER SEQUENCE links_movieid_seq RESTART WITH 209172;

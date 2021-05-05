@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { pool } from './database';
 import axios from 'axios';
 import { emailValid } from './utils';
-import { userInGET } from './models';
+import { moviesIn, userInGET } from './models';
+import { generateKeyPairSync } from 'node:crypto';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
@@ -60,60 +61,58 @@ export const getDisliked = async (req: Request, res: Response) => {
             return res.status(200).json(results.rows);
         }
     });
-
 }
 
-export const deleteLike = async (req: Request, res: Response) => {
+export const deleteLike = (req: Request, res: Response) => {
     const id = req.query['id'];
-    const movieID = req.query['movieID'];
+    const tmdbID = req.query['movieID'];
 
     // Checks if user exists in database
-    pool.query('DELETE FROM ratings WHERE userID = $1::int AND movieID = $2::int', [id, movieID], (error) => {
+    pool.query('DELETE FROM ratings WHERE userID = $1::int AND movieID = $2::int', [id, tmdbID], (error) => {
         if (error) return res.status(400).json({ message: error.message });
-         // Everything okay
-        else {
-            return res.status(200).json({ message: 'Movie rating deleted.' });
-        }
+        // Everything okay
+        return res.status(200).json({ message: 'Movie rating deleted.' });
     });
 }
 
-export const addLike = async (req: Request, res: Response) => {
+export const addLike = (req: Request, res: Response) => {
     const { userID, movieID, movieTitle, movieGenre, rating } = req.body;
 
-    pool.query('SELECT movieid FROM movies WHERE movieid = $1::int', [movieID], (error, results) => {
+    pool.query('SELECT tmdbid FROM links WHERE tmdbid = $1::int', [movieID], (error, results) => {
         if (error) return res.status(400).json({ message: error.message });
         // Movie does not exist
         if (results.rows.length === 0) {
             // Add movie to database
-            const insertNewMovie = 'INSERT INTO movies VALUES ($1::int, $2::text, $3::text[])'
-
-            pool.query(insertNewMovie, [movieID, movieTitle, movieGenre], (error) => {
+            const insertNewMovie = 'INSERT INTO movies VALUES (DEFAULT, $1::text, $2::text[])';
+            const insertNewTMDB = 'INSERT INTO links VALUES (DEFAULT, -1, $1::int)';
+            
+            // Updates movie table
+            pool.query(insertNewMovie, [movieTitle, movieGenre], (error) => {
                 if (error) return res.status(400).json({ message: error.message });
-            });
-        }
 
-        // Checks if user has rated this movie already
-        pool.query('SELECT * FROM ratings WHERE userid = $1::int AND movieid = $2::int', [userID, movieID], (error, results) => {
-            if (error) return res.status(400).json({ message: error.message });
-            // User has not rated this movie
-            if (results.rows.length === 0) {
-                // Insert rating
-                pool.query('INSERT INTO ratings values ($1::int, $2::int, $3::int)', [userID, movieID, rating], (error) => {
+                // Updates links table
+                pool.query(insertNewTMDB, [movieID], (error) => {
                     if (error) return res.status(400).json({ message: error.message });
-                    else return res.status(200).json({ success: true, message: movieTitle + ' rated successfully.'});
                 });
-            // User has rated this movie already
-            } else {
-                // Update rating 
-                const updateQuery = 'UPDATE ratings SET rating = $1::int WHERE userid = $2::int AND movieid = $3::int';
-                pool.query(updateQuery, [rating, userID, movieID], (error) => {
-                    if (error) return res.status(400).json({ message: error.message });
-                    else return res.status(200).json({ success: true, message: movieTitle + ' rated successfully.'});
-                });
-            }
-        });
+            });
+
+            // Retrieves current movie ID
+            pool.query('SELECT MAX(movieid) FROM movies', (error, results) => {
+                if (error) return res.status(400).json({ message: error.message });
+                const currMovieID = results.rows[0].max;
+                insertOrUpdateRating(res, userID, currMovieID, movieTitle, rating);
+            });
+        // Movie exists
+        } else {
+            pool.query('SELECT movieid FROM links WHERE tmdbid = $1::int', [movieID], (error, results) => {
+                if (error) return res.status(400).json({ message: error.message });
+                const currMovieID = results.rows[0].movieid;
+                insertOrUpdateRating(res, userID, currMovieID, movieTitle, rating);
+            });
+        }        
     });
 }
+
 // TODO: Update with other profile info (Name, etc.)
 export const createUser = async (req: Request, res: Response) => {
     const { email, password, name } = req.body;
@@ -216,3 +215,27 @@ export const getUserRatings = async (req: Request, res: Response) => {
         else return res.status(200).json(results.rows);
     });
 };
+
+
+function insertOrUpdateRating(res: Response, userID: number, currMovieID: number, movieTitle: string, rating: number) {
+    // Checks if user has rated this movie already
+    pool.query('SELECT * FROM ratings WHERE userID = $1::int AND movieID = $2::int', [userID, currMovieID], (error, results) => {
+        if (error) return res.status(400).json({ message: error.message });
+        // User has not rated this movie
+        if (results.rows.length === 0) {
+            // Insert rating
+            pool.query('INSERT INTO ratings values ($1::int, $2::int, $3::int)', [userID, currMovieID, rating], (error) => {
+                if (error) return res.status(400).json({ message: error.message });
+                else return res.status(200).json({ success: true, message: movieTitle + ' rated successfully.'});
+            });
+        // User has rated this movie already
+        } else {
+            // Update rating 
+            const updateQuery = 'UPDATE ratings SET rating = $1::int WHERE userid = $2::int AND movieid = $3::int';
+            pool.query(updateQuery, [rating, userID, currMovieID], (error) => {
+                if (error) return res.status(400).json({ message: error.message });
+                else return res.status(200).json({ success: true, message: movieTitle + ' rated successfully.'});
+            });
+        }
+    });
+}
