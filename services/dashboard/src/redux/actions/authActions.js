@@ -23,7 +23,7 @@ export const googleLogin =  (googleData, history) => async(dispatch) => {
       if (res.status === 201) {
         message.success(res.data.message);
       } 
-      
+
       const { dataType, successMsg, id, token } = res.data;
 
       // Set token to localStorage
@@ -43,7 +43,7 @@ export const googleLogin =  (googleData, history) => async(dispatch) => {
       
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err,
