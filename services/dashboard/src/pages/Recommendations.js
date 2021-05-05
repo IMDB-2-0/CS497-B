@@ -6,9 +6,9 @@ import MovieCard from '../components/MovieCard';
 import MovieSubListHeading from '../components/MoveSubListHeader';
 
 const Recommendations = () => {
+    /*** For TMDB recommendations ***/
     const [recommendationsTMDB, setRecommendationsTMDB] = React.useState([]);
 
-    // For TMDB recommendations
     React.useEffect(async () => {
         async function fetchData() {
             const liked = await fetchLiked(localStorage.getItem('id')); // Movies user liked
@@ -19,13 +19,12 @@ const Recommendations = () => {
                 const randomMovieLiked = liked[Math.floor(Math.random() * liked.length)];
                 const recommended = await retrieveRecommendationsTMDB(randomMovieLiked.tmdbid); 
                 setRecommendationsTMDB(recommended.results);
-            // User has not liked anything yet
-            } else {
-                setRecommendationsTMDB([]);
-            }
+            } 
         }
-        await fetchData();
+        if (recommendationsTMDB.length === 0) await fetchData() // only updates page when state is empty (when page initially loads)
     }, [recommendationsTMDB]);
+
+    /*** For recommender system we implented ***/
 
     return (
         <div className='container-fluid movie-app'>
