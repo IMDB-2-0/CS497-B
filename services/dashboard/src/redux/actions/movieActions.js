@@ -44,6 +44,15 @@ export const retrieveNowPlayingMovies = page => dispatch => {
         });
 };
 
+export const getMovieByID = (tmdbID) => {
+    return axios
+        .get(`${TMDB_URL}/movie/${tmdbID}?api_key=${TMDB_API_KEY}`)
+        .then(res => res.data)
+        .catch(error => {
+            console.log('Get Movie ID', error); 
+    });
+};
+
 //Get likes
 export const fetchLiked = async(id) => {
     return await axios
@@ -137,3 +146,11 @@ export const retrieveRecommendationsTMDB = async (movieID) => {
 };
 
 // from recommender system
+export const retrieveRecommendationsALS = async (userID) => {
+    return axios
+        .get(`/api/v1/database/recommendations?id=${userID}`)
+        .then(res => res.data)
+        .catch(error => {
+            message.error('An error occured.'); 
+        });
+};

@@ -49,3 +49,8 @@
   border: none;
   background: none;
 }
+
+.thumbnail {
+  max-height: 480px;
+  overflow: hidden;
+}

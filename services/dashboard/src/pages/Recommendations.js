@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { message, Button } from 'antd';
-import { fetchLiked, retrieveRecommendationsTMDB } from '../redux/actions/movieActions';
+import { fetchLiked, retrieveRecommendationsTMDB, 
+    retrieveRecommendationsALS, getMovieByID } from '../redux/actions/movieActions';
 import MovieCard from '../components/MovieCard'; 
 import MovieSubListHeading from '../components/MoveSubListHeader';
 
 const Recommendations = () => {
     /*** For TMDB recommendations ***/
     const [recommendationsTMDB, setRecommendationsTMDB] = React.useState([]);
-    const [recommendationsTitle, setRecommendationsTitle] = React.useState('');
+    const [recommendationsTitle, setRecommendationsTitle] = React.useState('No recommendations found');
+    /*** For recommender system we implented ***/
+    const [recommendationsALS, setRecommendationsALS] = React.useState([]);
 
     React.useEffect(async () => {
-        async function fetchData() {
+        async function fetchDataTMDB() {
             const liked = await fetchLiked(localStorage.getItem('id')); // Movies user liked
 
             // User has liked at least one movie
@@ -23,10 +25,24 @@ const Recommendations = () => {
                 setRecommendationsTitle('Since you liked ' + randomMovieLiked.title + ' you might like:');
             } 
         }
-        if (recommendationsTMDB.length === 0) await fetchData() // only updates page when state is empty (when page initially loads)
-    }, [recommendationsTMDB, recommendationsTitle]);
+        
+        async function fetchDataALS() {
+            const rec = await retrieveRecommendationsALS(localStorage.getItem('id')); // Get recommendations for user
+            
+            // Recommender system has outputted recommendations for this user
+            if (rec !== undefined) {
+                if (rec.length > 0) {
+                    let tmdbData = await Promise.all(rec.map(movie => getMovieByID(movie.tmdbid)));
+                    tmdbData = tmdbData.filter(movie => movie !== undefined);
+                    setRecommendationsALS(tmdbData);
+                }
+            }
+        }
 
-    /*** For recommender system we implented ***/
+        // only updates page when state is empty (when page initially loads)
+        if (recommendationsTMDB.length === 0) await fetchDataTMDB() 
+        if (recommendationsALS.length === 0) await fetchDataALS()
+    }, [recommendationsTMDB, recommendationsTitle, recommendationsALS]);
 
     return (
         <div className='container-fluid movie-app'>
@@ -36,6 +52,15 @@ const Recommendations = () => {
             <div className='row'>
                 {
                     recommendationsTMDB.map(info => (
+                        <MovieCard movie={info}/>   
+                    ))
+                }
+            </div>
+            <MovieSubListHeading heading='Personalized Recommendations'/>
+            <i className='mx-3'>Note: At least one day might be needed to update your recommendations.</i>
+            <div className='row'>
+                {
+                    recommendationsALS.map(info => (
                         <MovieCard movie={info}/>   
                     ))
                 }
