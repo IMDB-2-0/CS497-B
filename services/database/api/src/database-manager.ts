@@ -168,11 +168,15 @@ export const googlelogin = async (req: Request, res: Response) => {
         }
     });
     
+    // console.log(newResponse);
+    // console.log(newResponse.data);
+    // console.log(newResponse.data[0].userid);
     if(newResponse.status === 200) {
         // Sign token
         const payload = {
-            email: newResponse.data.email,
-            name: newResponse.data.name,
+            email: newResponse.data[0].email,
+            name: newResponse.data[0].name,
+            id: newResponse.data[0].userid
         }
         const token = jwt.sign(payload, 'secret', {
             expiresIn: 31556926, // 1 year in seconds
@@ -180,7 +184,7 @@ export const googlelogin = async (req: Request, res: Response) => {
         jwt.verify(token, 'secret');
         return res.status(200).json({
             success: true,
-            token: `bearer ${token}`,
+            token: `bearer ${token}`
         });
     }
     return res.status(newResponse.status).json({ message: newResponse.statusText }); 

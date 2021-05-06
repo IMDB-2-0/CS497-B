@@ -18,6 +18,7 @@ router.post('/googlelogin',  async(req, res) => {
       const new_payload = { email_verified: email_verified, name: name, email: email };
       axios.post('http://nginx:5050/api/v1/database/user/login', new_payload)
         .then((res_info) => {
+          // console.log(res_info)
           const { token, bearer } = res_info.data;
           return res.status(200).json({token: token, bearer:bearer});
         }).catch((err) => {
