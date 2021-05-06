@@ -34,6 +34,7 @@ CREATE TABLE ratings(
 CREATE TABLE recommendations(
     userID INTEGER,
     movieID INTEGER,
+    tmdbID INTEGER, 
     PRIMARY KEY (userID, movieID),
     FOREIGN KEY (userID)
         REFERENCES users,
@@ -65,7 +66,7 @@ ALTER SEQUENCE links_movieid_seq RESTART WITH 209172;
 
 -- For presentation purposes 
 -- Adding in fake ratings for the first user (Hans' email)
-INSERT INTO users VALUES (DEFAULT, 'hquiogue@umas.edu', 'this-should-be-encrypted-but-its-not', 'Hans Quiogue', 't');
+INSERT INTO users VALUES (DEFAULT, 'hquiogue@umass.edu', 'this-should-be-encrypted-but-its-not', 'Hans Quiogue', 't');
 
 -- Family movies (should get recommendations similar to these...)
 INSERT INTO ratings VALUES (170000, 1, 1);

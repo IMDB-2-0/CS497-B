@@ -223,6 +223,15 @@ export const getUserRatings = async (req: Request, res: Response) => {
     });
 };
 
+export const getUserRecommendations = async (req: Request, res: Response) => {
+    const { id } = req.query;
+
+    pool.query('SELECT tmdbID FROM recommendations WHERE userID = $1::int', [id], (error, results) => {
+        if (error) return res.status(400).json({ message: error.message });
+        else return res.status(200).json(results.rows);
+    });
+};
+
 
 function insertOrUpdateRating(res: Response, userID: number, currMovieID: number, movieTitle: string, rating: number) {
     // Checks if user has rated this movie already
@@ -246,3 +255,4 @@ function insertOrUpdateRating(res: Response, userID: number, currMovieID: number
         }
     });
 }
+

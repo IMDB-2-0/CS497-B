@@ -26,7 +26,7 @@ async def recommender(user_ratings: RatingsIn):
     data = spark.createDataFrame(Row(**x) for x in user_ratings)
 
     # Creates prediction for a user
-    predictions = fitted_model.recommendForUserSubset(data, 6)
+    predictions = fitted_model.recommendForUserSubset(data, 10)
     
     # Predictions are not empty
     if predictions.count() > 0:
@@ -37,8 +37,20 @@ async def recommender(user_ratings: RatingsIn):
         # Joined results based on prediction
         results = join_tables(predictions, links, movies)
 
+        # Write to database
+        url = 'jdbc:postgresql://postgresdb:5432/postgres'
+        properties = {
+            "user": "postgres",
+            "password": "postgres"
+        }
+        newDBData = results.select('r.userid', 'm.movieid', 'tmdbid')
+        newDBData.write.jdbc(url = url, table = 'recommendations', mode = 'overwrite', properties = properties)
+
         # Returns DataFrame results as a list of objects
         return results.rdd.map(lambda row: row.asDict()).collect()
     
     else:
-        return {}
+        return [{
+                    'movieid': -1, 'title': '',
+                    'imdbid': -1, 'tmdbid': -1
+                }]    
