@@ -1,20 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchLiked, retrieveRecommendationsTMDB, 
     retrieveRecommendationsALS, getMovieByID } from '../redux/actions/movieActions';
 import MovieCard from '../components/MovieCard'; 
 import MovieSubListHeading from '../components/MoveSubListHeader';
 
-const Recommendations = () => {
+const Recommendations = ({ auth }) => {
     /*** For TMDB recommendations ***/
     const [recommendationsTMDB, setRecommendationsTMDB] = React.useState([]);
     const [recommendationsTitle, setRecommendationsTitle] = React.useState('No recommendations found');
     /*** For recommender system we implented ***/
     const [recommendationsALS, setRecommendationsALS] = React.useState([]);
 
-    React.useEffect(async () => {
+    const { id } = auth.user;
+
+    React.useEffect(() => {
         async function fetchDataTMDB() {
-            const liked = await fetchLiked(localStorage.getItem('id')); // Movies user liked
+            const liked = await fetchLiked(id); // Movies user liked
 
             // User has liked at least one movie
             if (liked.length > 0) {
@@ -27,7 +30,7 @@ const Recommendations = () => {
         }
         
         async function fetchDataALS() {
-            const rec = await retrieveRecommendationsALS(localStorage.getItem('id')); // Get recommendations for user
+            const rec = await retrieveRecommendationsALS(id); // Get recommendations for user
             
             // Recommender system has outputted recommendations for this user
             if (rec !== undefined) {
@@ -40,8 +43,8 @@ const Recommendations = () => {
         }
 
         // only updates page when state is empty (when page initially loads)
-        if (recommendationsTMDB.length === 0) await fetchDataTMDB() 
-        if (recommendationsALS.length === 0) await fetchDataALS()
+        if (recommendationsTMDB.length === 0) fetchDataTMDB() 
+        if (recommendationsALS.length === 0) fetchDataALS()
     }, [recommendationsTMDB, recommendationsTitle, recommendationsALS]);
 
     return (
@@ -69,7 +72,13 @@ const Recommendations = () => {
     );
 };
 
+Recommendations.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    auth: PropTypes.object.isRequired
+};
+
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     recTMDB: state.recommendationsTMDB,
     recTitleTMDB: state.recommendationsTitle
 });

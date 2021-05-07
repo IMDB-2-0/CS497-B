@@ -6,14 +6,16 @@ import { fetchDisliked } from '../redux/actions/movieActions';
 import store from '../redux/store';
 import TitleCard from '../components/TitleCard';
 
-const Disliked = () => {
+const Disliked = ({ auth }) => {
     const [disliked, setdisliked] = React.useState([]);
     //TODO: Get user from local storage
     //const [user, setUser] = React.useState([]);
     
+    const { id } = auth.user;
+
     React.useEffect(() => {
         async function fetchData() {
-            const dislikes = await fetchDisliked(localStorage.getItem('id'));
+            const dislikes = await fetchDisliked(id);
             setdisliked(dislikes);
         }
         fetchData();
@@ -22,14 +24,21 @@ const Disliked = () => {
     return (
         <>
             {disliked.map((dislike) => (
-                <TitleCard title={dislike.title} id={localStorage.getItem('id')} movieID = {dislike.movieid}/>
+                <TitleCard title={dislike.title} id={id} movieID = {dislike.movieid}/>
             ))}
         </>
     );
 
 }
 
+Disliked.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    auth: PropTypes.object.isRequired
+};
+
+
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     disliked: state.disliked
 });
 

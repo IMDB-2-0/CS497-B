@@ -27,9 +27,6 @@ const Home = ({ auth, movies }) => {
     }, [page])
 
     const { now_playing, now_popular } = movies;
-    // console.log(movies);
-    // Use the id everywhere
-    const { id } = auth.user;
 
     return (
     

@@ -6,14 +6,16 @@ import { fetchLiked } from '../redux/actions/movieActions';
 import store from '../redux/store';
 import TitleCard from '../components/TitleCard';
 
-const Liked = () => {
+const Liked = ({ auth }) => {
     const [liked, setLiked] = React.useState([]);
     //TODO: Get user from local storage
     //const [user, setUser] = React.useState([]);
 
+    const { id } = auth.user;
+
     React.useEffect(() => {
         async function fetchData() {
-            const likes = await fetchLiked(localStorage.getItem('id'));
+            const likes = await fetchLiked(id);
             setLiked(likes);
         }
         fetchData();
@@ -22,17 +24,22 @@ const Liked = () => {
     return (
         <>
             {liked.map((like) => (
-                <TitleCard title={like.title} id={localStorage.getItem('id')} movieID = {like.movieid}/>
+                <TitleCard title={like.title} id={id} movieID = {like.movieid}/>
             ))}
         </>
     );
 
 }
 
+Liked.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    auth: PropTypes.object.isRequired
+};
+
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     liked: state.liked
 });
-
 
 
 export default connect(mapStateToProps)(Liked);
