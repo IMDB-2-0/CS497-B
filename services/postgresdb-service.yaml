@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgresdb
+  name: postgresdb
+spec:
+  ports:
+    - name: "34532"
+      port: 34532
+      targetPort: 5432
+  selector:
+    io.kompose.service: postgresdb
+status:
+  loadBalancer: {}
