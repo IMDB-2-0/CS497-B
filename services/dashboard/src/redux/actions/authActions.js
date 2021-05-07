@@ -19,12 +19,10 @@ export const setUserLoading = () => ({
 export const googleLogin =  (googleData, history) => async(dispatch) => {
   await axios.post("/api/v1/auth/googlelogin", {tokenId: googleData.tokenId})
     .then((res) => {
-
       if (res.status === 400) {
         console.log(res.json());
       }
-      
-      // const { token } = res.data;
+
       if (res.status === 201) {
         message.success(res.data.message);
       } 
