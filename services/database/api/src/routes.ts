@@ -1,8 +1,10 @@
 import { Router, Request, Response } from 'express';
 
 
-import { createUser, getMovies, getUser, getLiked, getDisliked, deleteLike, getUserRatings, googlelogin, addLike } from './database-manager';
-import { moviesIn, likeInGET, dislikeInGET, likeInDELETE, userInGET, tempUserInGET, userInPOST, loginUserPOST, likeInPOST } from './models';
+import { createUser, getMovies, getUser, getLiked, getDisliked, deleteLike, 
+    getUserRatings, googlelogin, addLike, getUserRecommendations } from './database-manager';
+import { moviesIn, likeInGET, dislikeInGET, likeInDELETE, userInGET, 
+    tempUserInGET, userInPOST, loginUserPOST, likeInPOST } from './models';
 
 export const router = Router();
 
@@ -36,4 +38,5 @@ router.post('/liked/add', likeInPOST, addLike);
 
 router.post('/user/login', loginUserPOST, googlelogin);
 
-
+// Recommendations
+router.get('/recommendations', userInGET, getUserRecommendations);

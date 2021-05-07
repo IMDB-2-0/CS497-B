@@ -31,6 +31,18 @@ CREATE TABLE ratings(
         REFERENCES movies
 );
 
+CREATE TABLE recommendations(
+    userID INTEGER,
+    movieID INTEGER,
+    tmdbID INTEGER, 
+    PRIMARY KEY (userID, movieID),
+    FOREIGN KEY (userID)
+        REFERENCES users,
+    FOREIGN KEY (movieID)
+        REFERENCES movies
+);
+
+
 -- Movies
 \COPY movies(movieID, title, genresTemp) FROM '/var/lib/postgresql/data/ml-25m/movies.csv' CSV HEADER;
 -- Converts genres to array
@@ -50,3 +62,15 @@ ALTER SEQUENCE users_userid_seq RESTART WITH 170000;
 
 -- Increment new IDs for new movies
 ALTER SEQUENCE links_movieid_seq RESTART WITH 209172;
+
+
+-- For presentation purposes 
+-- Adding in fake ratings for the first user (Hans' email)
+INSERT INTO users VALUES (DEFAULT, 'hquiogue@umass.edu', 'this-should-be-encrypted-but-its-not', 'Hans Quiogue', 't');
+
+-- Family movies (should get recommendations similar to these...)
+INSERT INTO ratings VALUES (170000, 1, 1);
+INSERT INTO ratings VALUES (170000, 48, 1);
+INSERT INTO ratings VALUES (170000, 107, 1);
+INSERT INTO ratings VALUES (170000, 169, 1);
+INSERT INTO ratings VALUES (170000, 344, 0);

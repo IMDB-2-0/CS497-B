@@ -44,3 +44,13 @@
   padding: 44px 32px;
   min-height: 280px;
 }
+
+.ant-btn.ant-btn-icon-only {
+  border: none;
+  background: none;
+}
+
+.thumbnail {
+  max-height: 480px;
+  overflow: hidden;
+}

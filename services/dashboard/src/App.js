@@ -11,6 +11,7 @@ import Home from './pages/Home'
 import Liked from './pages/Liked';
 import Disliked from './pages/Disliked';
 import SearchMovie from './pages/SearchMoviePage';
+import Recommendations from './pages/Recommendations';
 
 import PrivateRoute from './components/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
@@ -57,6 +58,7 @@ function App() {
                   <PrivateRoute path="/liked" component={Liked} />
                   <PrivateRoute path="/disliked" component={Disliked} />
                   <Route path="/searchMovie" component={SearchMovie} />
+                  <PrivateRoute path="/recommendations" component={Recommendations}/>
                 </Container>
               </>
             </Switch>

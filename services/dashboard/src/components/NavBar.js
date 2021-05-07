@@ -24,6 +24,9 @@ function CustomNavbar({ auth, logoutUser }) {
         <Nav.Link href="/disliked" active={route === 'disliked'}>
           Disliked
         </Nav.Link>
+        <Nav.Link href="/recommendations" active={route === 'recommendations'}>
+          Recommendations
+        </Nav.Link>
         <Nav.Link href="/searchMovie" active={route === 'searchMovie'}>
           Search Movie
         </Nav.Link>
