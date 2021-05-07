@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard
+  labels:
+    app: dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: dashboard
+    spec:
+      containers:
+        - env:
+            - name: IS_DOCKER
+              value: "Yes"
+          image: dashboard
+          name: dashboard
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          resources: {}
+      restartPolicy: Always
+status: {}

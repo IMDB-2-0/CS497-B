@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgresdb
+  name: postgresdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgresdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: postgresdb
+    spec:
+      containers:
+        - env:
+            - name: PGDATA
+              value: /tmp
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+          image: postgres:12
+          name: postgresdb
+          ports:
+            - containerPort: 5432
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data/
+              name: postgresdb-claim0
+            - mountPath: /docker-entrypoint-initdb.d/1-init.sql
+              name: postgresdb-claim1
+      restartPolicy: Always
+      volumes:
+        - name: postgresdb-claim0
+          persistentVolumeClaim:
+            claimName: postgresdb-claim0
+        - name: postgresdb-claim1
+          persistentVolumeClaim:
+            claimName: postgresdb-claim1
+status: {}

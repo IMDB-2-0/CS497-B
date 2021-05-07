@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: database-api
+  name: database-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: database-api
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: database-api
+    spec:
+      containers:
+        - image: database-api
+          name: database-api
+          ports:
+            - containerPort: 5000
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: database-api-claim0
+      restartPolicy: Always
+      volumes:
+        - name: database-api-claim0
+          persistentVolumeClaim:
+            claimName: database-api-claim0
+status: {}

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: recommender
+  name: recommender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: recommender
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: recommender
+    spec:
+      containers:
+        - env:
+            - name: PYSPARK_SUBMIT_ARGS
+              value: --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1,org.postgresql:postgresql:42.2.19 --driver-class-path /app/api/postgresql-42.2.19.jar pyspark-shell
+          image: recommender
+          name: recommender
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: recommender-claim0
+      restartPolicy: Always
+      volumes:
+        - name: recommender-claim0
+          persistentVolumeClaim:
+            claimName: recommender-claim0
+status: {}
