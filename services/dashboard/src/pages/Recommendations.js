@@ -43,8 +43,8 @@ const Recommendations = ({ auth }) => {
         }
 
         // only updates page when state is empty (when page initially loads)
-        if (recommendationsTMDB.length === 0) fetchDataTMDB() 
-        if (recommendationsALS.length === 0) fetchDataALS()
+        if (recommendationsTMDB.length === 0) fetchDataTMDB(); 
+        if (recommendationsALS.length === 0) fetchDataALS();
     }, [recommendationsTMDB, recommendationsTitle, recommendationsALS]);
 
     return (
@@ -55,7 +55,7 @@ const Recommendations = ({ auth }) => {
             <div className='row'>
                 {
                     recommendationsTMDB.map(info => (
-                        <MovieCard movie={info}/>   
+                        <MovieCard id={id} movie={info}/>   
                     ))
                 }
             </div>
@@ -64,7 +64,7 @@ const Recommendations = ({ auth }) => {
             <div className='row'>
                 {
                     recommendationsALS.map(info => (
-                        <MovieCard movie={info}/>   
+                        <MovieCard id={id} movie={info}/>   
                     ))
                 }
             </div>
