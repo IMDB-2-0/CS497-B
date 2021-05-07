@@ -29,11 +29,10 @@ export const googleLogin =  (googleData, history) => async(dispatch) => {
         message.success(res.data.message);
       } 
 
-      const { id, token } = res.data;
+      const { token } = res.data;
 
       // Set token to localStorage
       localStorage.setItem('jwtToken', token);
-      localStorage.setItem('id', JSON.stringify(id))
       
       // Set token to Auth header
       setAuthToken(token);
