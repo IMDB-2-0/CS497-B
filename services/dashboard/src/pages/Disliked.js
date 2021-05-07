@@ -11,10 +11,9 @@ const Disliked = () => {
     //TODO: Get user from local storage
     //const [user, setUser] = React.useState([]);
     
-    //TODO: replace 1 with user ID
     React.useEffect(() => {
         async function fetchData() {
-            const dislikes = await fetchDisliked(0);
+            const dislikes = await fetchDisliked(localStorage.getItem('id'));
             setdisliked(dislikes);
         }
         fetchData();
@@ -23,7 +22,7 @@ const Disliked = () => {
     return (
         <>
             {disliked.map((dislike) => (
-                <TitleCard title={dislike.title} id={0} movieID = {dislike.movieid}/>
+                <TitleCard title={dislike.title} id={localStorage.getItem('id')} movieID = {dislike.movieid}/>
             ))}
         </>
     );

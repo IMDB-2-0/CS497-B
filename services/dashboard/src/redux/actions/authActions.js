@@ -19,14 +19,17 @@ export const setUserLoading = () => ({
 export const googleLogin =  (googleData, history) => async(dispatch) => {
   await axios.post("/api/v1/auth/googlelogin", {tokenId: googleData.tokenId})
     .then((res) => {
-      if (res.status === 400) {
-        console.log(res.json());
-      }
 
-      const { token } = res.data;
+      if (res.status === 201) {
+        message.success(res.data.message);
+      } 
+
+      const { dataType, successMsg, id, token } = res.data;
+
       // Set token to localStorage
       localStorage.setItem('jwtToken', token);
-      // localStorage.setItem('id', id);
+      localStorage.setItem('id', JSON.stringify(id))
+      
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
@@ -34,15 +37,16 @@ export const googleLogin =  (googleData, history) => async(dispatch) => {
       // Set current user
       dispatch(setCurrentUser(decoded));
       // Add possible message
-      message.success('Login Successful');
+      message.success(res.data.message);
       // Go to Home page
       history.push('/');
+      
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: err.response,
+        payload: err,
       });
     })
 };

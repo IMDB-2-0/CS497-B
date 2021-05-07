@@ -31,9 +31,6 @@ const Home = ({ auth, movies }) => {
     // Use the id everywhere
     const { id } = auth.user;
 
-    // TODO: Edit and make work with nginx (problem with CORS in nginx config)
-    // const link = 'http://localhost:5002/api/v1/recommender/status'
-    // console.log(auth);
     return (
     
         <div className='container-fluid movie-app'>

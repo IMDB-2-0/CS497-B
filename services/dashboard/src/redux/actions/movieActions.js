@@ -3,8 +3,10 @@ import { SEARCH_MOVIE, FETCH_MOVIES,
     FETCH_POPULAR_MOVIES, 
     RETRIEVE_NOWPLAYING_MOVIES_SUCCESS, 
     FETCH_MOVIE, LOADING,
-    FETCH_SEARCH_MOVIE
+    FETCH_SEARCH_MOVIE,
+    FETCH_RECOMMENDATION_TMDB
 } from './types';
+import { message } from 'antd';
 import { TMDB_URL, TMDB_API_KEY } from "../../constants/config";
 
 export const getMovieRequest = (searchValue) => dispatch => {
@@ -42,10 +44,19 @@ export const retrieveNowPlayingMovies = page => dispatch => {
         });
 };
 
+export const getMovieByID = (tmdbID) => {
+    return axios
+        .get(`${TMDB_URL}/movie/${tmdbID}?api_key=${TMDB_API_KEY}`)
+        .then(res => res.data)
+        .catch(error => {
+            console.log('Get Movie ID', error); 
+    });
+};
+
 //Get likes
 export const fetchLiked = async(id) => {
     return await axios
-            .get('http://localhost:5050/api/v1/database/liked?id=' + id)
+            .get('/api/v1/database/liked?id=' + id)
             .then(res => {
                 return res.data;
             })
@@ -58,7 +69,7 @@ export const fetchLiked = async(id) => {
 //Get dislikes
 export const fetchDisliked = (id) => {
     return axios
-            .get('http://localhost:5050/api/v1/database/disliked?id=' + id)
+            .get('/api/v1/database/disliked?id=' + id)
             .then(res => {
                 return res.data;
             })
@@ -73,27 +84,73 @@ export const deleteLiked = (id, movieID) => {
     return axios
             .delete('http://localhost:5050/api/v1/database/liked/delete?id=' + id  + '&movieID=' + movieID)
             .then(res => {
-                console.log(res);
+                message.success(res.data.message);
             })
             .catch(error => {
-                console.log('Disliked', error); 
+                message.error('An error occurred. Please try again.');
             });
             
     }
 
-    //Delete likes
-export const addLiked = (id, movieID, rating) => {
-    return axios
-            .post('http://localhost:5050/api/v1/database/liked/add', {
-                id: id, 
-                movieID: movieID, 
-                rating: rating 
-            }) 
-            .then(res => {
-                console.log(res);
-            })
-            .catch(error => {
-                console.log('Add', error); 
-            });
-            
+//Add likes
+export const addLiked = (userID, movie, rating) => {
+    
+    const movieGenreTitlesById = {
+        28: 'Action',
+        12: 'Adventure',
+        16: 'Animation',
+        35: 'Comedy',
+        80: 'Crime',
+        99: 'Documentary',
+        18: 'Drama',
+        10751: 'Children',
+        14: 'Fantasy',
+        36: 'History',
+        27: 'Horror',
+        10402: 'Musical',
+        9648: 'Mystery',
+        10749: 'Romance',
+        878: 'Sci-Fi',
+        10770: 'TV Movie',
+        53: 'Thriller',
+        10752: 'War',
+        37: 'Western'
     }
+    
+    return axios
+        .post('/api/v1/database/liked/add', {
+            userID: userID, 
+            movieID: movie.id, 
+            movieTitle: movie.original_title,
+            movieGenre: movie.genre_ids.map(genreID => movieGenreTitlesById[genreID]), // Map genre names
+            rating: rating
+        }) 
+        .then(res => {
+            message.success(res.data.message);
+        })
+        .catch(error => {
+            message.error('An error occurred. Please try again.');
+        });
+}
+
+// Recommendations
+
+// from TMDB
+export const retrieveRecommendationsTMDB = async (movieID) => {
+    return axios
+        .get(`${TMDB_URL}/movie/${movieID}/recommendations?api_key=${TMDB_API_KEY}`)
+        .then(res => res.data)
+        .catch(error => {
+            message.error('An error occured.'); 
+        });
+};
+
+// from recommender system
+export const retrieveRecommendationsALS = async (userID) => {
+    return axios
+        .get(`/api/v1/database/recommendations?id=${userID}`)
+        .then(res => res.data)
+        .catch(error => {
+            message.error('An error occured.'); 
+        });
+};

@@ -9,14 +9,9 @@ and information retrieval to help imitate modern systems.
 
 Here are some of our goals:
 1. Develop a dashboard of user recommendations
-    - We'll need a variety of APIs to grab information on movies
-(such as their titles, posters, etc). It will display movies
-and users can rate movies and leave reviews.
-2. Movie Recommendation Engine in Flask
-    - We will initially need to train a dataset with any proposed model.
-We'll be using the [MovieLens dataset](https://grouplens.org/datasets/movielens/)
-to train our movie data. We'll be utilizing a ML or Deep Learning model
-that we haven't decided yet to recommend information based on user preferences.
+    - Display movies where users can rate and search through movies to obtain accurate recommendations. We'll need [the Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction) to grab information on movies, such as their titles, posters, and more. 
+2. Movie Recommendation Engine in Spark
+    - Utilize collaborative filtering and an Alternative Least Squares model approach via PySpark to recommend movies based on previous user preferences and ratings. We'll be using the [MovieLens 25M dataset](https://grouplens.org/datasets/movielens/25m/) to train our movie data. 
 3. Login/Authentication & User Management
     - Provide a basic authentication and user management system that a user can
 update their information. It's important for users to have some of
@@ -24,7 +19,22 @@ these features for reasons related to customization and security.
 
 ## Installation
 
-Change the working directory to the `services` folder and run:
+First, the required datasets will be downloaded. This includes:
+- The MovieLens dataset
+- [Transformed ratings](https://drive.google.com/file/d/1ZuEv1fJrsnuk64iauUSPqtChaViwhS8l/view?usp=sharing) (to account for our like and dislike system)
+
+You can run the following commands to download the scripts and place them into their correct destinations:
+
+``` bash
+make
+```
+
+If you would like to download the files manually, make sure they are stored in the proper directories:
+
+- MovieLens: `./services/database/data/ml-25m`
+- Ratings: `./services/recommender/data`
+
+Afterwards, change the working directory to the `services` folder and run:
 
 ``` bash
 docker-compose up --build -d
