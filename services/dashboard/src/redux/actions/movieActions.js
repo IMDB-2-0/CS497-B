@@ -116,13 +116,20 @@ export const addLiked = (userID, movie, rating) => {
         10752: 'War',
         37: 'Western'
     }
-    
+
+    // Accounts for movie genres that are empty from TMDB response
+    // TODO: Might need to account for movieGenres with ID not included in object above^: 
+    //    - Genre names differ in TMDB and are altered to match names in MovieLens dataset
+    //    - IDs retrieved from here: https://www.themoviedb.org/talk/5daf6eb0ae36680011d7e6ee
+    // TODO: Potentially need to account for undefined objects keys in response? (movie.id, movie.original_title, etc)
+    const movieGenres = movie.genre_ids.length > 0 ? movie.genre_ids.map(genreID => movieGenreTitlesById[genreID]) : ['NA']
+
     return axios
         .post('/api/v1/database/liked/add', {
             userID: userID, 
             movieID: movie.id, 
             movieTitle: movie.original_title,
-            movieGenre: movie.genre_ids.map(genreID => movieGenreTitlesById[genreID]), // Map genre names
+            movieGenre: movieGenres,
             rating: rating
         }) 
         .then(res => {

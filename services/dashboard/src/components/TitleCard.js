@@ -6,7 +6,7 @@ const TitleCard = ({ title, id, movieID }) => {
     return (
         <>
         <div className="row">
-            <div className="col-md-10 card card-body"><h2 className="mb-2">{title}</h2></div>
+            <div className="col-auto card card-body"><h2 className="mb-2">{title}</h2></div>
             <button type="button" class="ant-btn ant-btn-primary ant-btn-dangerous mt-4 mx-2" 
                     onClick = {() => {deleteLiked(id, movieID);}}>
                 <span>Delete Movie Rating</span>

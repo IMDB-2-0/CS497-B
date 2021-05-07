@@ -4,32 +4,21 @@ import { connect } from 'react-redux';
 import store from '../redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchPopularMovies, retrieveNowPlayingMovies} from '../redux/actions/movieActions';
-import { Button } from 'antd';
 import './Home.css';
 
 import MovieCard from '../components/MovieCard'; 
-import MovieListHeading from '../components/MovieListHeading';
 import MovieSubListHeading from '../components/MoveSubListHeader';
-import SearchBox from '../components/SearchBox';
-import AddFavourites from '../components/AddFavourites';
-import RemoveFavourites from '../components/RemoveFavourites';
-
 
 const Home = ({ auth, movies }) => {
 
-    const [page, setPage] = React.useState(1)
-    const [favourites, setFavourites] = React.useState([]);
-    // const [data, setData] = React.useState("Press me!");
+    const { id } = auth.user;
 
     React.useEffect(() => {
-        store.dispatch(retrieveNowPlayingMovies(page));
-        store.dispatch(fetchPopularMovies(page));
-    }, [page])
+        store.dispatch(retrieveNowPlayingMovies(1));
+        store.dispatch(fetchPopularMovies(1));
+    }, [])
 
     const { now_playing, now_popular } = movies;
-    // console.log(movies);
-    // Use the id everywhere
-    const { id } = auth.user;
 
     return (
     
@@ -37,13 +26,13 @@ const Home = ({ auth, movies }) => {
             <MovieSubListHeading heading="Popular Movies" />
             <div className='row'>
                 {now_popular.results && now_popular.results.map(info => (
-                        <MovieCard movie={info} />   
+                        <MovieCard id = {id} movie={info} />   
                 ))}
             </div>
             <MovieSubListHeading heading="Movies Now Playing" />
             <div className='row'>
                 {now_playing.results && now_playing.results.map(info => (
-                        <MovieCard movie={info}/>   
+                        <MovieCard id = {id} movie={info}/>   
                 ))}
             </div>
         </div>

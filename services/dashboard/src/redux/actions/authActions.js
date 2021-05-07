@@ -19,16 +19,18 @@ export const setUserLoading = () => ({
 export const googleLogin =  (googleData, history) => async(dispatch) => {
   await axios.post("/api/v1/auth/googlelogin", {tokenId: googleData.tokenId})
     .then((res) => {
+      if (res.status === 400) {
+        console.log(res.json());
+      }
 
       if (res.status === 201) {
         message.success(res.data.message);
       } 
 
-      const { dataType, successMsg, id, token } = res.data;
+      const { token } = res.data;
 
       // Set token to localStorage
       localStorage.setItem('jwtToken', token);
-      localStorage.setItem('id', JSON.stringify(id))
       
       // Set token to Auth header
       setAuthToken(token);

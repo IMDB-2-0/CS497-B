@@ -5,6 +5,7 @@ body {
 
 .movie-app > .row {
 	overflow-x: auto;
+	overflow-y: hidden;
 	flex-wrap: nowrap;
 }
 
@@ -33,3 +34,6 @@ body {
 	padding: 20px;
 	text-align: center;
 }
+
+
+

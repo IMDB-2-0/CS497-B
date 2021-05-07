@@ -14,6 +14,8 @@ import SearchMovie from './pages/SearchMoviePage';
 import Recommendations from './pages/Recommendations';
 
 import PrivateRoute from './components/PrivateRoute';
+import Footer from './components/Footer';
+
 import setAuthToken from './utils/setAuthToken';
 import { milisecondsToSeconds } from './utils/dateTime';
 
@@ -40,34 +42,31 @@ if (localStorage.jwtToken) {
 
 
 function App() {
-  
   return (
-      <div style={{ minHeight: '100vh', background: '#eeeeee' }}>
+      <div style={{ 
+        position: 'relative',
+        minHeight: '100vh', 
+        background: '#eeeeee' }}>
         <Provider store={store}> 
           <NavBar />
           <main>
             <Switch>
               <Route path="/login" component={Login} />
               <>
-                <Container
-                  style={{
-                    marginTop: '25px',
-                    background: '#ffffff',
-                  }}>
                   <PrivateRoute exact path="/" component={Home}/>
                   <PrivateRoute path="/liked" component={Liked} />
                   <PrivateRoute path="/disliked" component={Disliked} />
                   <Route path="/searchMovie" component={SearchMovie} />
                   <PrivateRoute path="/recommendations" component={Recommendations}/>
-                </Container>
+                  <Footer />
               </>
             </Switch>
-          </main>
+          </main>          
         </Provider>
       </div>
   );
-
-/* 
+              
+/*
  return (
   <div>
   <Provider store={store}> 
@@ -78,6 +77,7 @@ function App() {
         <Route path="/liked" component={Liked} />
         <Route path="/disliked" component={Disliked} />
         <Route path="/searchMovie" component={SearchMovie} />
+        <Footer />
         </Switch>
     </main>
   </Provider>
