@@ -5,10 +5,12 @@ import store from '../redux/store';
 import MovieRow from '../components/MovieRow';
 import { getMovieRequest } from '../redux/actions/movieActions';
 
-const SearchMovie = ({ movies }) => {
+const SearchMovie = ({ auth, movies }) => {
 	const [searchValue, setSearchValue] = React.useState('');
     const [lookupMovies, setLookupMovies] = React.useState([]);
     
+    const { id } = auth.user;
+
     function searchRequestMovies() {
         store.dispatch(getMovieRequest(searchValue));
     }
@@ -18,16 +20,13 @@ const SearchMovie = ({ movies }) => {
     }
 
     React.useEffect(() => {
-        // store.dispatch(retrieveNowPlayingMovies(page));
-        // store.dispatch(fetchPopularMovies(page));
-        // console.log(searchValue);
         var movieRows = [];
         searchRequestMovies();
         const { search_movies_list } = movies;
 
         if(search_movies_list.results !== undefined) {
             search_movies_list.results.forEach((movie) => {
-                const movieRow = <MovieRow key={movie.id} movie={movie}/>
+                const movieRow = <MovieRow id={id} movie={movie}/>
                 movieRows.push(movieRow)
             });
 
@@ -56,10 +55,12 @@ const SearchMovie = ({ movies }) => {
 }
 
 SearchMovie.propTypes = {
+    auth: PropTypes.object.isRequired,
     movies: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     movies: state.movies
 });
 

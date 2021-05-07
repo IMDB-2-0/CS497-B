@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { TMDB_URL, TMDB_IMG_URL, TMDB_API_KEY } from '../constants/config';
+import { TMDB_URL, TMDB_IMG_URL } from '../constants/config';
 import styles from './MovieCard.css';
 import { Space, Button } from 'antd';
 import { LikeTwoTone, DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import {addLiked} from '../redux/actions/movieActions';
 import 'bootstrap/dist/css/bootstrap.min.css';
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ id, movie }) => {
 
     return (
       <div className="container">
@@ -29,11 +29,11 @@ const MovieCard = ({ movie }) => {
               <Space size={'large'}>
                 <Button icon = {
                   <LikeOutlined style={{ fontSize: '32px', color: '#3bcfd4'}} 
-                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 1)}} />}>
+                  onClick = {()=>{addLiked(id, movie, 1)}} />}>
                 </Button>
                 <Button icon = {
                   <DislikeOutlined style={{ fontSize: '32px', color: '#ff0000'}} 
-                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 0)}}/>}>
+                  onClick = {()=>{addLiked(id, movie, 0)}}/>}>
                 </Button>
               </Space>
             </div>

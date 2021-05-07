@@ -3,7 +3,7 @@ import { Space, Button } from 'antd';
 import {addLiked} from '../redux/actions/movieActions';
 import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 
-function MovieRow({key, movie}) {
+function MovieRow({id, movie}) {
   function viewMovie() {
     const url = "https://www.themoviedb.org/movie/" + movie.id;
     window.location.href = url
@@ -29,11 +29,11 @@ function MovieRow({key, movie}) {
               <Space size={'large'}>
                 <Button icon = {
                   <LikeOutlined style={{ fontSize: '32px', color: '#3bcfd4'}} 
-                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 1)}} />}>
+                  onClick = {()=>{addLiked(id, movie, 1)}} />}>
                 </Button>
                 <Button icon = {
                   <DislikeOutlined style={{ fontSize: '32px', color: '#ff0000'}} 
-                  onClick = {()=>{addLiked(localStorage.getItem('id'), movie, 0)}}/>}>
+                  onClick = {()=>{addLiked(id, movie, 0)}}/>}>
                 </Button>
               </Space>
               </div>
