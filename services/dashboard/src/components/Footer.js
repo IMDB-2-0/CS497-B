@@ -1,13 +1,14 @@
 import React from 'react';
-
+import './Footer.css';
 import { Container } from 'react-bootstrap';
 
 const Footer = () => (
-  <Container>
+  <Container fluid>
     <div>
       <footer
         style={{
           position: 'relative',
+          paddingTop: '15px',
           bottom: '0',
         }}
       >

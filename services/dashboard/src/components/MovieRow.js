@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, Button } from 'antd';
 import {addLiked} from '../redux/actions/movieActions';
 import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
+import './MovieRow.css';
 
 function MovieRow({id, movie}) {
   function viewMovie() {
@@ -17,10 +18,10 @@ function MovieRow({id, movie}) {
         <td>
           <img alt="poster" width="120" src={movie.poster_src}/>
         </td>
-        <td className="container">
+        <td className="container-fluid">
           <h3>{movie.title}</h3>
           <p>{movie.overview}</p>
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <div className="col-sm-10 mt-2">
                 <input type="button" onClick={viewMovie} value="View"/>

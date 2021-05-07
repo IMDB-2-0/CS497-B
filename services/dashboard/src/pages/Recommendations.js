@@ -25,7 +25,7 @@ const Recommendations = ({ auth }) => {
                 const randomMovieLiked = liked[Math.floor(Math.random() * liked.length)];
                 const recommended = await retrieveRecommendationsTMDB(randomMovieLiked.tmdbid); 
                 setRecommendationsTMDB(recommended.results);
-                setRecommendationsTitle('Since you liked ' + randomMovieLiked.title + ' you might like:');
+                setRecommendationsTitle('Since you liked ' + randomMovieLiked.title + ', you might like:');
             } 
         }
         

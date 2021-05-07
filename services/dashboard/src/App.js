@@ -42,7 +42,6 @@ if (localStorage.jwtToken) {
 
 
 function App() {
-  
   return (
       <div style={{ 
         position: 'relative',
@@ -54,26 +53,20 @@ function App() {
             <Switch>
               <Route path="/login" component={Login} />
               <>
-                <Container
-                  style={{
-                    marginTop: '25px',
-                    background: '#ffffff',
-                  }}>
                   <PrivateRoute exact path="/" component={Home}/>
                   <PrivateRoute path="/liked" component={Liked} />
                   <PrivateRoute path="/disliked" component={Disliked} />
                   <Route path="/searchMovie" component={SearchMovie} />
                   <PrivateRoute path="/recommendations" component={Recommendations}/>
-                </Container>
-                <Footer />
+                  <Footer />
               </>
             </Switch>
           </main>          
         </Provider>
       </div>
   );
-
-/* 
+              
+/*
  return (
   <div>
   <Provider store={store}> 
@@ -84,6 +77,7 @@ function App() {
         <Route path="/liked" component={Liked} />
         <Route path="/disliked" component={Disliked} />
         <Route path="/searchMovie" component={SearchMovie} />
+        <Footer />
         </Switch>
     </main>
   </Provider>
