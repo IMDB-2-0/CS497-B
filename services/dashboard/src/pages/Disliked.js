@@ -23,9 +23,11 @@ const Disliked = ({ auth }) => {
 
     return (
         <>
-            {disliked.map((dislike) => (
-                <TitleCard title={dislike.title} id={id} movieID = {dislike.movieid}/>
-            ))}
+            <div className='container mt-3'>
+                {disliked.map((dislike) => (
+                    <TitleCard title={dislike.title} id={id} movieID = {dislike.movieid}/>
+                ))}
+            </div>
         </>
     );
 

@@ -22,10 +22,12 @@ const Liked = ({ auth }) => {
     }, [liked]);
     
     return (
-        <>
-            {liked.map((like) => (
-                <TitleCard title={like.title} id={id} movieID = {like.movieid}/>
-            ))}
+        <>  
+            <div className='container mt-3'>
+                {liked.map((like) => (
+                    <TitleCard title={like.title} id={id} movieID = {like.movieid}/>
+                ))}
+            </div>
         </>
     );
 

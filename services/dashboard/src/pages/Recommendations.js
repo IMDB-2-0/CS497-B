@@ -48,7 +48,7 @@ const Recommendations = ({ auth }) => {
     }, [recommendationsTMDB, recommendationsTitle, recommendationsALS]);
 
     return (
-        <div className='container-fluid movie-app'>
+        <div className='container-fluid movie-app mt-3'>
             <h2 className='text-center'>Recommendations</h2>
             <MovieSubListHeading heading={recommendationsTitle}/>
             <i className='mx-3'>Note: At least one movie rating is required.</i>
